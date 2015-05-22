@@ -430,6 +430,11 @@ function carregaJsonEntrada(){
                 retorno += '</div></div></div><br/><br/>'; // fim do panel-default. fim da col. fim da row
                 
                 $("#retornoJson").append(retorno);
+
+                $("div[contenteditable='true']").bind("input", function(){
+                    //alert("alterou nome");
+                $(this).css("background-color", "#FDFFDA");
+            });
             }
         }
     }); // fim da requisição ajax
