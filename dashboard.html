@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>PADOC - WebClient</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Editable Table -->
+    <link href="css/table-editable.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery -->
+    <!--<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>-->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script Principal -->
+    <script src="js/principal.js"></script>
+
+    <!-- Table to JSON -->
+    <script type="text/javascript" src="js/jquery.tabletojson.min.js"></script> 
+
+    <!-- JSON-Diff -->
+    <script type="text/javascript" src="public/build/jsondiffpatch.min.js"></script> 
+    <script type="text/javascript" src="public/build/jsondiffpatch-formatters.min.js"></script> 
+    <link rel="stylesheet" href="public/formatters-styles/html.css" type="text/css" />
+    <link rel="stylesheet" href="public/formatters-styles/annotated.css" type="text/css" />
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">PADOC</a>
+            </div>
+            <ul class="nav navbar-right top-nav" id="navbarTopRight">
+            </ul>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li clas="active">
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Dashboard
+                            <small>PADOC - Sistema de Avaliação</small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <a href="index.html">Home</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-file"></i> Dashboard
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- DADOS GERAIS DO DOCENTE -->
+                <div class="row">
+                    <div class="col-lg-10">
+                        <p id="siape"><strong>SIAPE:</strong> </p>
+                        <p id="ingressoUfg"><strong>Data de ingresso na UFG:</strong> </p>
+                        <p id="ingressoServicoPublico"><strong>Data de ingresso na carreira pública:</strong> </p>
+                        <br/>
+                    </div>
+                    <div class="col-lg-2" style="text-align: center;">
+                        <br/>
+                        <button type="button" class="btn btn-lg btn-primary" id="btnSalvar">Salvar...</button>
+                        <br/>
+                    </div>
+                </div>
+
+                <!-- INÍCIO APRESENTAÇÃO DAS TABELAS -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="retornoJson">
+                  
+                        </div>
+                    </div>
+                </div>
+                <!-- FIM APRESENTAÇÃO DAS TABELAS -->
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($){
+            // POPULA A PÁGINA
+            imprimeInformacoesDocente();
+            carregaJsonEntrada();
+
+            $("#btnSalvar").click(function(){
+                
+                // Variáveis
+                var retornoJson = {};
+                var arrayPeriodos = [];
+
+
+                retornoJson["siape"] = GLOBAL_requestResponse["siape"];
+                retornoJson["data-ingresso-na-ufg"] = GLOBAL_requestResponse["data-ingresso-na-ufg"];
+                retornoJson["data-ingresso-servico-publico"] = GLOBAL_requestResponse["data-ingresso-servico-publico"];
+
+                //alert(JSON.stringify(retornoJson));
+
+                for (var i = 0; i < GLOBAL_requestResponse["periodos"].length; i++) {
+                    
+                    var objetoPeriodoGERAL = {}; // representa o período como um todo
+                    var tabela; // vai ser usada pelo tableToJSON() para todas as tabelas
+                    var objetoPeriodo; // periodo interno, composto somente de inicio e fim
+
+
+                    // FORMATANDO PERÍODO INTERNO
+                    objetoPeriodo = formataPeriodo(GLOBAL_requestResponse["periodos"][i]);
+                    objetoPeriodoGERAL["periodo"] = objetoPeriodo;
+                    
+                    
+                    // FORMATANDO A TABELA DE DADOS DO DOCENTE
+                    tabela = $("#dados-do-docente-"+i).tableToJSON();
+                    objetoPeriodoGERAL["dados-do-docente"] = formataTabelaDadosDoDocente(tabela);
+                    //alert(JSON.stringify(objetoPeriodoGERAL));
+
+                    // FORMATANDO A TABELA DE AFASTAMENTO
+                    tabela = $("#afastamento-"+i).tableToJSON();
+                    objetoPeriodoGERAL["afastamento"] = formataTabelaAfastamento(tabela);
+                    //alert(JSON.stringify(objetoPeriodoGERAL));
+
+                    // FORMATANDO A TABELA ATIVIDADES DE ENSINO
+                    tabela = $("#atividades-de-ensino-"+i).tableToJSON();
+                    objetoPeriodoGERAL["atividades-de-ensino"] = tabela;
+                    //alert(JSON.stringify(objetoPeriodoGERAL));
+
+                    // FORMATANDO A TABELA DE ATIVIDADES DE ORIENTAÇÃO
+                    tabela = $("#atividades-de-orientacao-"+i).tableToJSON();
+                    objetoPeriodoGERAL["atividades-de-orientacao"] = formataTabelaAtividadesDeOrientacao(tabela);
+                    //alert(JSON.stringify(objetoPeriodoGERAL));
+
+                    // FORMATANDO A TABELA DE ATIVIDADES EM PROJETOS
+
+
+
+                    //arrayPeriodos.push(objetoPeriodoGERAL);
+                };
+
+                //retornoJson["periodos"] = arrayPeriodos;
+                //alert(JSON.stringify(retornoJson));
+
+            });  
+
+
+
+            // FUNÇÕES QUE AUXILIAM NA FORMATAÇÃO DO JSON DE RETORNO
+            function formataPeriodo(GLOBAL){
+
+                var aux = {};
+
+                aux["inicio"] = GLOBAL["periodo"]["inicio"];
+                aux["fim"] = GLOBAL["periodo"]["fim"];
+
+                return aux;
+            }
+
+            function formataTabelaDadosDoDocente(tabela){
+
+                var aux = {};
+
+                aux["nome"] = tabela[0]["nome"];
+                aux["unidade"] = tabela[0]["unidade"];
+                aux["titulacao"] = tabela[0]["titulacao"];
+                aux["regime-de-trabalho"] = tabela[0]["regime-de-trabalho"];
+                aux["classe"] = tabela[0]["classe"];
+                aux["nivel"] = tabela[0]["nivel"];
+                aux["ch-contratada"] = tabela[0]["ch-contratada"];
+                aux["ch-executada"] = tabela[0]["ch-executada"];
+                aux["email"] = tabela[0]["email"];
+
+                return aux;
+
+            }
+
+            function formataTabelaAfastamento(tabela){
+
+                var aux = {};
+
+                //aux = tabela[0];
+
+                return aux;
+            }
+
+            function formataTabelaAtividadesDeOrientacao(tabela){
+
+                var arrAux = [];
+                
+                for (var i = 0; i < tabela.length; i++) {
+                    
+                    var aux = {};
+                    aux["titulo-do-trabalho"] = tabela[i]["titulo-do-trabalho"];
+                    aux["tabela"] = tabela[i]["tabela"];
+                    aux["estudante"] = tabela[i]["estudante"];
+                    aux["matricula"] = tabela[i]["matricula"];
+                    aux["funcao-do-docente"] = tabela[i]["funcao-do-docente"];
+                    aux["nivel"] = tabela[i]["nivel"];
+                    aux["curso"] = tabela[i]["curso"];
+                    aux["ies"] = tabela[i]["ies"];
+                    aux["cha"] = tabela[i]["cha"];
+                    aux["periodo"] = {"inicio": tabela[i]["inicio"], "fim": tabela[i]["fim"]};
+                    aux["tipo-orientacao"] = tabela[i]["tipo-orientacao"];
+
+                    arrAux.push(aux);
+                };
+
+                return arrAux;
+            }
+
+        });
+    </script>
+</body>
+</html>
