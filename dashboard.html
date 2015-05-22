@@ -162,23 +162,50 @@
 
                     // FORMATANDO A TABELA ATIVIDADES DE ENSINO
                     tabela = $("#atividades-de-ensino-"+i).tableToJSON();
-                    objetoPeriodoGERAL["atividades-de-ensino"] = tabela;
+                    objetoPeriodoGERAL["atividades-de-ensino"] = formataTabelaAtividadesDeEnsino(tabela);
                     //alert(JSON.stringify(objetoPeriodoGERAL));
 
                     // FORMATANDO A TABELA DE ATIVIDADES DE ORIENTAÇÃO
                     tabela = $("#atividades-de-orientacao-"+i).tableToJSON();
                     objetoPeriodoGERAL["atividades-de-orientacao"] = formataTabelaAtividadesDeOrientacao(tabela);
-                    //alert(JSON.stringify(objetoPeriodoGERAL));
+                    //console.log(JSON.stringify(objetoPeriodoGERAL));
 
                     // FORMATANDO A TABELA DE ATIVIDADES EM PROJETOS
+                    tabela = $("#atividades-em-projetos-"+i).tableToJSON();
+                    objetoPeriodoGERAL["atividades-em-projetos"] = formataTabelaAtividadesEmProjetos(tabela);
+                    //console.log(JSON.stringify(objetoPeriodoGERAL));
+
+                    // FORMATANDO A TABELA DE ATIVIDADES DE EXTENSÃO
+                    tabela = $("#atividades-de-extensao-"+i).tableToJSON();
+                    objetoPeriodoGERAL["atividades-de-extensao"] = formataTabelaAtividadesDeExtensao(tabela);
+                    //console.log(JSON.stringify(objetoPeriodoGERAL));
+
+                    // FORMATANDO ATIVIDADES DE QUALIFICAÇÃO
+                    tabela = $("#atividades-de-qualificacao-"+i).tableToJSON();
+                    objetoPeriodoGERAL["atividades-de-qualificacao"] = formataTabelaAtividadesDeQualificacao(tabela);
+                    //console.log(JSON.stringify(objetoPeriodoGERAL));
+
+                    // FORMATANDO A TABELA ATIVIDADES ACADEMICAS ESPECIAIS
+                    tabela = $("#atividades-academicas-especiais-"+i).tableToJSON();
+                    objetoPeriodoGERAL["atividades-academicas-especiais"] = formataTabelaAtividadesAcademicasEspeciais(tabela);
+                    //console.log(JSON.stringify(objetoPeriodoGERAL));
+
+                    // FORMATANDO A TABELA ATIVIDADES ADMINISTRATIVAS
+                    tabela = $("#atividades-administrativas-"+i).tableToJSON();
+                    objetoPeriodoGERAL["atividades-administrativas"] = formataTabelaAtividadesAdministrativas(tabela);
+                    //console.log(JSON.stringify(objetoPeriodoGERAL));
+
+                    // FORMATANDO A TABELA PRODUTOS
+                    tabela = $("#produtos-"+i).tableToJSON();
+                    objetoPeriodoGERAL["produtos"] = formataTabelaProdutos(tabela);
+                    //console.log(JSON.stringify(objetoPeriodoGERAL));
 
 
-
-                    //arrayPeriodos.push(objetoPeriodoGERAL);
+                    arrayPeriodos.push(objetoPeriodoGERAL);
                 };
 
-                //retornoJson["periodos"] = arrayPeriodos;
-                //alert(JSON.stringify(retornoJson));
+                retornoJson["periodos"] = arrayPeriodos;
+                console.log(JSON.stringify(retornoJson));
 
             });  
 
@@ -222,6 +249,33 @@
                 return aux;
             }
 
+            function formataTabelaAtividadesDeEnsino(tabela){
+
+                var arrAux = [];
+                
+                for (var i = 0; i < tabela.length; i++) {
+                    
+                    var aux = {};
+                    aux["curso"] = tabela[i]["curso"];
+                    aux["disciplina"] = tabela[i]["disciplina"];
+                    aux["cha"] = JSON.parse(tabela[i]["cha"]);
+                    aux["ano"] = JSON.parse(tabela[i]["ano"]);
+                    aux["sem"] = JSON.parse(tabela[i]["sem"]);
+                    aux["turma"] = tabela[i]["turma"];
+                    aux["sub"] = tabela[i]["sub"];
+                    aux["numero-alunos"] = JSON.parse(tabela[i]["numero-alunos"]);
+                    aux["numero-sub"] = JSON.parse(tabela[i]["numero-sub"]);
+                    aux["cht"] = JSON.parse(tabela[i]["cht"]);
+                    aux["chp"] = JSON.parse(tabela[i]["chp"]);
+                    aux["chac"] = tabela[i]["chac"];
+                    aux["conjugada"] = JSON.parse(tabela[i]["conjugada"]);                    
+
+                    arrAux.push(aux);
+                };
+
+                return arrAux;
+            }
+
             function formataTabelaAtividadesDeOrientacao(tabela){
 
                 var arrAux = [];
@@ -237,9 +291,137 @@
                     aux["nivel"] = tabela[i]["nivel"];
                     aux["curso"] = tabela[i]["curso"];
                     aux["ies"] = tabela[i]["ies"];
-                    aux["cha"] = tabela[i]["cha"];
+                    aux["cha"] = JSON.parse(tabela[i]["cha"]);
                     aux["periodo"] = {"inicio": tabela[i]["inicio"], "fim": tabela[i]["fim"]};
                     aux["tipo-orientacao"] = tabela[i]["tipo-orientacao"];
+
+                    arrAux.push(aux);
+                };
+
+                return arrAux;
+            }
+
+            function formataTabelaAtividadesEmProjetos(tabela){
+
+                var arrAux = [];
+
+                for (var i = 0; i < tabela.length; i++) {
+                    
+                    var aux = {};
+                    aux["titulo-do-projeto"] = tabela[i]["titulo-do-projeto"];
+                    aux["tabela"] = tabela[i]["tabela"];
+                    aux["unidade-responsavel"] = tabela[i]["unidade-responsavel"];
+                    aux["tipo"] = tabela[i]["tipo"];
+                    aux["situacao"] = tabela[i]["situacao"];
+                    aux["funcao"] = tabela[i]["funcao"];
+                    aux["financiado"] = tabela[i]["financiado"];
+                    aux["cha"] = JSON.parse(tabela[i]["cha"]);
+                    aux["periodo"] = {"inicio": tabela[i]["inicio"], "fim":tabela[i]["fim"]};
+
+                    arrAux.push(aux);
+                };
+
+                return arrAux;
+            }
+
+            function formataTabelaAtividadesDeExtensao(tabela){
+
+                var arrAux = [];
+
+                for (var i = 0; i < tabela.length; i++) {
+                    
+                    var aux = {};
+                    aux["tabela"] = tabela[i]["tabela"];
+                    aux["cha"] = JSON.parse(tabela[i]["cha"]);
+                    aux["periodo"] = {"inicio":tabela[i]["inicio"], "fim":tabela[i]["fim"]};
+                    aux["descricao"] = tabela[i]["descricao"];
+                    aux["clientela"] = tabela[i]["clientela"];                    
+
+                    arrAux.push(aux);
+                };
+
+                return arrAux;
+
+            }
+
+            function formataTabelaAtividadesDeQualificacao(tabela){
+
+                var arrAux = [];
+
+                for (var i = 0; i < tabela.length; i++) {
+                    
+                    var aux = {};
+                    aux["tabela"] = tabela[i]["tabela"];
+                    aux["descricao"] = tabela[i]["descricao"];
+                    aux["cha"] = JSON.parse(tabela[i]["cha"]);
+                    aux["periodo"] = {"inicio":tabela[i]["inicio"], "fim":tabela[i]["fim"]};
+                    
+                    arrAux.push(aux);
+                };
+
+                return arrAux;
+            }
+
+            function formataTabelaAtividadesAcademicasEspeciais(tabela){
+
+                var arrAux = [];
+
+                for (var i = 0; i < tabela.length; i++) {
+                    
+                    var aux = {};
+                    aux["tabela"] = tabela[i]["tabela"];
+                    aux["cha"] = JSON.parse(tabela[i]["cha"]);
+                    aux["periodo"] = {"inicio":tabela[i]["inicio"], "fim":tabela[i]["fim"]};
+                    aux["descricao"] = tabela[i]["descricao"];
+                    aux["clientela"] = tabela[i]["clientela"];
+
+                    arrAux.push(aux);
+                };
+
+                return arrAux;
+            }
+
+            function formataTabelaAtividadesAdministrativas(tabela){
+
+                var arrAux = [];
+
+                for (var i = 0; i < tabela.length; i++) {
+                    
+                    var aux = {};
+                    aux["tabela"] = tabela[i]["tabela"];
+                    aux["cha"] = JSON.parse(tabela[i]["cha"]);
+                    aux["periodo"] = {"inicio":tabela[i]["inicio"], "fim":tabela[i]["fim"]};
+                    aux["descricao"] = tabela[i]["descricao"];
+                    aux["emissor"] = tabela[i]["emissor"];
+                    aux["orgao-servido"] = tabela[i]["orgao-servido"];
+                    aux["portaria"] = tabela[i]["portaria"];
+
+                    arrAux.push(aux);
+                };
+
+                return arrAux;
+            }
+
+            function formataTabelaProdutos(tabela){
+
+                var arrAux = [];
+
+                for (var i = 0; i < tabela.length; i++) {
+                    
+                    var aux = {};
+                    aux["descricao"] = tabela[i]["descricao"];
+                    aux["titulo"] = tabela[i]["titulo"];
+                    aux["autoria"] = tabela[i]["autoria"];
+                    aux["associacao-do-produto"] = tabela[i]["associacao-do-produto"];
+                    aux["projeto-associado"] = tabela[i]["projeto-associado"];
+                    aux["veiculacao"] = tabela[i]["veiculacao"];
+                    aux["local"] = tabela[i]["local"];
+                    aux["data"] = tabela[i]["data"];
+                    aux["ano-da-publicacao"] = JSON.parse(tabela[i]["ano-da-publicacao"]);
+                    aux["pagina-inicial"] = tabela[i]["pagina-inicial"];
+                    aux["pagina-final"] = tabela[i]["pagina-final"];
+                    aux["numero-de-paginas"] = JSON.parse(tabela[i]["numero-de-paginas"]);
+                    aux["numero-da-patente"] = tabela[i]["numero-da-patente"];
 
                     arrAux.push(aux);
                 };

@@ -224,7 +224,7 @@ function carregaJsonEntrada(){
                 // INICIO ATIVIDADES EM PROJETOS
                 retorno += '<h4>ATIVIDADES EM PROJETOS</h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-em-projetos-' +i +'">';
-                retorno += '<thead><tr><th>titulo-do-projeto</th><th>tabela</th><th>unidade-responsavel</th><th>tipo</th><th>situacao</th><th>funcao</th><th>financiado</th><th>cha</th><th>inicio</th><th>FIM</th></tr></thead>';
+                retorno += '<thead><tr><th>titulo-do-projeto</th><th>tabela</th><th>unidade-responsavel</th><th>tipo</th><th>situacao</th><th>funcao</th><th>financiado</th><th>cha</th><th>inicio</th><th>fim</th></tr></thead>';
                 retorno += '<tbody>';
                 for (j = 0; j < response["periodos"][i]["atividades-em-projetos"].length; j++) {
                     retorno += '<tr><td><div contenteditable="true">';
