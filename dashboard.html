@@ -24,8 +24,8 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
     <!-- jQuery -->
@@ -41,92 +41,141 @@
     <!-- Table to JSON -->
     <script type="text/javascript" src="js/jquery.tabletojson.min.js"></script> 
 
+    <!-- PRETTY DIFF -->
+    <script type="text/javascript" src="js/prettydiff.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/diffview.css" media="all"/>
+    
     <!-- JSON-Diff -->
-    <script type="text/javascript" src="public/build/jsondiffpatch.min.js"></script> 
-    <script type="text/javascript" src="public/build/jsondiffpatch-formatters.min.js"></script> 
+    <script type="text/javascript" src="public/build/jsondiffpatch.js"></script> 
+    <script type="text/javascript" src="public/build/jsondiffpatch-formatters.js"></script> 
     <link rel="stylesheet" href="public/formatters-styles/html.css" type="text/css" />
     <link rel="stylesheet" href="public/formatters-styles/annotated.css" type="text/css" />
 
-</head>
+    </head>
 
-<body>
-    <div id="wrapper">
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">PADOC</a>
-            </div>
-            <ul class="nav navbar-right top-nav" id="navbarTopRight">
-            </ul>
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li clas="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
+    <body>
+        <div id="wrapper">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">PADOC</a>
+                </div>
+                <ul class="nav navbar-right top-nav" id="navbarTopRight">
                 </ul>
-            </div>
-        </nav>
-
-        <div id="page-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Dashboard
-                            <small>PADOC - Sistema de Avaliação</small>
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Home</a>
-                            </li>
-                            <li class="active">
-                                <i class="fa fa-file"></i> Dashboard
-                            </li>
-                        </ol>
-                    </div>
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav side-nav">
+                        <li clas="active">
+                            <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        </li>
+                    </ul>
                 </div>
+            </nav>
 
-                <!-- DADOS GERAIS DO DOCENTE -->
-                <div class="row">
-                    <div class="col-lg-10">
-                        <p id="siape"><strong>SIAPE:</strong> </p>
-                        <p id="ingressoUfg"><strong>Data de ingresso na UFG:</strong> </p>
-                        <p id="ingressoServicoPublico"><strong>Data de ingresso na carreira pública:</strong> </p>
-                        <br/>
-                    </div>
-                    <div class="col-lg-2" style="text-align: center;">
-                        <br/>
-                        <button type="button" class="btn btn-lg btn-primary" id="btnExibirLogDeMudancas">Log de mudanças</button>
-                        <br/>
-                    </div>
-                </div>
-
-                <!-- INÍCIO APRESENTAÇÃO DAS TABELAS -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div id="retornoJson">
-                  
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">
+                                Dashboard
+                                <small>PADOC - Sistema de Avaliação</small>
+                            </h1>
+                            <ol class="breadcrumb">
+                                <li>
+                                    <i class="fa fa-dashboard"></i>  <a href="index.html">Home</a>
+                                </li>
+                                <li class="active">
+                                    <i class="fa fa-file"></i> Dashboard
+                                </li>
+                            </ol>
                         </div>
                     </div>
+
+                    <!-- INICIO DADOS GERAIS DO DOCENTE E PAINEL DE CONTROLE -->
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <p id="siape"><strong>SIAPE:</strong> </p>
+                            <p id="ingressoUfg"><strong>Data de ingresso na UFG:</strong> </p>
+                            <p id="ingressoServicoPublico"><strong>Data de ingresso na carreira pública:</strong> </p>
+                            <br/>
+                        </div>
+                        <div class="col-lg-2" style="text-align: center;">
+                            <br/>
+                            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#modalMudancas" id="btnExibirLogDeMudancas">Log de mudanças</button>
+                            <br/>
+                        </div>
+                    </div>
+                    <!-- FIM DADOS GERAIS DO DOCENTE E PAINEL DE CONTROLE -->
+
+                    <!-- INÍCIO APRESENTAÇÃO DAS TABELAS -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="retornoJson">
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIM APRESENTAÇÃO DAS TABELAS -->
+
+                    <div id="visual"></div>
+
+                    <!-- INICIO MODAL LOG DE MUDANÇAS -->
+                    <div class="modal fade" id="modalMudancas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="width: 90%;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="tituloModal">Log de Mudanças</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div id="jsonDiffVisual" style="width: 80%">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                    <button type="button" class="btn btn-primary" id="edit_client_btn">Salvar</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- FIM MODAL LOG DE MUDANÇAS -->
+
+                    <div  class="row">
+                        <div class="col-lg-12">
+                            <div id="diffoutput">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PRETTY DIFF -->
+                    <!--<span class="clear"></span><div id="diffoutput">
+                    <iframe id="iFrame" width="800px" height="800px" scrolling="auto" frameborder="1" align="center" src="teste.html">
+                        
+                    </iframe>-->
                 </div>
-                <!-- FIM APRESENTAÇÃO DAS TABELAS -->
             </div>
         </div>
-    </div>
 
-    <script type="text/javascript">
-        jQuery(document).ready(function($){
+        <script type="text/javascript">
+            jQuery(document).ready(function($){
             // POPULA A PÁGINA
             imprimeInformacoesDocente();
             carregaJsonEntrada();
 
             $("#btnExibirLogDeMudancas").click(function(){
-                
+
                 // Variáveis
                 var retornoJson = {};
                 var arrayPeriodos = [];
@@ -139,7 +188,7 @@
                 //alert(JSON.stringify(retornoJson));
 
                 for (var i = 0; i < GLOBAL_requestResponse["periodos"].length; i++) {
-                    
+
                     var objetoPeriodoGERAL = {}; // representa o período como um todo
                     var tabela; // vai ser usada pelo tableToJSON() para todas as tabelas
                     var objetoPeriodo; // periodo interno, composto somente de inicio e fim
@@ -205,7 +254,84 @@
                 };
 
                 retornoJson["periodos"] = arrayPeriodos;
-                alert(JSON.stringify(retornoJson));
+                //alert(JSON.stringify(retornoJson));
+
+                // INICIO DO JSON DIFF
+                GLOBAL_right = retornoJson;
+
+                GLOBAL_right = JSON.stringify(GLOBAL_right);
+
+                //var delta = jsondiffpatch.diff(GLOBAL_left, GLOBAL_right);
+                //$("#diffoutput").html(jsondiffpatch.formatters.html.format(delta, GLOBAL_left));
+
+
+                
+                args = {
+                    source: GLOBAL_left,
+                    diff: GLOBAL_right,
+                    objsort: "none",
+                    lang: "auto",
+                    diffview: "inline"
+                };
+    
+                var output = prettydiff(args);
+
+                $("#jsonDiffVisual").html(output[0]);
+                //console.log(output);
+
+
+                /*var iframe = document.createElement('iframe');
+                iframe.frameBorder = 1;
+                //iframe.width = "500px";
+                //iframe.height = "500px";
+                iframe.id = "iframe";
+                //iframe.src = "teste.html";
+
+                iframe.onload = function()
+                {
+                    var doc = iframe.contentDocument || iframe.contentWindow.document;
+                    //var div = doc.createElement('div');
+                    doc.html = output[0];
+                    //div.textContent = "Paragraph in iframe";
+                    //doc.body.appendChild(div);
+                };
+
+                document.getElementById("iFrameReceiver").appendChild(iframe); //this is a div  that I have in body.
+
+                
+                
+
+                
+                //$("#diffoutput").append( output[0] );
+                //$("#iFrame").html("</div>" + output[0]);
+                //return heading + output[1] + "</div>" + output[0] + "</body></html>";
+
+
+                /*alert(GLOBAL_left);
+                alert(GLOBAL_right);
+                var delta = JSON.stringify(jsondiffpatch.diff(GLOBAL_left, GLOBAL_right));
+
+    
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://prettydiff.com",
+                    data: {
+                        l: "html",
+                        m: "diff",
+                        source: GLOBAL_left,
+                        diff: GLOBAL_right
+                    }
+                });*/
+                //window.open("http://prettydiff.com/?l=html&m=diff&diff=" +GLOBAL_right +"&source=" +GLOBAL_left );
+
+                // http://prettydiff.com/?l=html&m=diff&
+
+                //console.log(JSON.stringify(jsondiff.diff(GLOBAL_right, GLOBAL_left)));
+                
+
+                //$("#modalMudancas").html(jsondiffpatch.formatters.html.format(delta, GLOBAL_left));
+                //document.getElementById('modalMudancas').innerHTML = jsondiffpatch.formatters.html.format(delta, GLOBAL_left);
 
             });  
 
@@ -254,7 +380,7 @@
                 var arrAux = [];
                 
                 for (var i = 0; i < tabela.length; i++) {
-                    
+
                     var aux = {};
                     aux["curso"] = tabela[i]["curso"];
                     aux["disciplina"] = tabela[i]["disciplina"];
@@ -281,7 +407,7 @@
                 var arrAux = [];
                 
                 for (var i = 0; i < tabela.length; i++) {
-                    
+
                     var aux = {};
                     aux["titulo-do-trabalho"] = tabela[i]["titulo-do-trabalho"];
                     aux["tabela"] = tabela[i]["tabela"];
@@ -306,7 +432,7 @@
                 var arrAux = [];
 
                 for (var i = 0; i < tabela.length; i++) {
-                    
+
                     var aux = {};
                     aux["titulo-do-projeto"] = tabela[i]["titulo-do-projeto"];
                     aux["tabela"] = tabela[i]["tabela"];
@@ -329,7 +455,7 @@
                 var arrAux = [];
 
                 for (var i = 0; i < tabela.length; i++) {
-                    
+
                     var aux = {};
                     aux["tabela"] = tabela[i]["tabela"];
                     aux["cha"] = JSON.parse(tabela[i]["cha"]);
@@ -349,7 +475,7 @@
                 var arrAux = [];
 
                 for (var i = 0; i < tabela.length; i++) {
-                    
+
                     var aux = {};
                     aux["tabela"] = tabela[i]["tabela"];
                     aux["descricao"] = tabela[i]["descricao"];
@@ -367,7 +493,7 @@
                 var arrAux = [];
 
                 for (var i = 0; i < tabela.length; i++) {
-                    
+
                     var aux = {};
                     aux["tabela"] = tabela[i]["tabela"];
                     aux["cha"] = JSON.parse(tabela[i]["cha"]);
@@ -386,7 +512,7 @@
                 var arrAux = [];
 
                 for (var i = 0; i < tabela.length; i++) {
-                    
+
                     var aux = {};
                     aux["tabela"] = tabela[i]["tabela"];
                     aux["cha"] = JSON.parse(tabela[i]["cha"]);
@@ -407,7 +533,7 @@
                 var arrAux = [];
 
                 for (var i = 0; i < tabela.length; i++) {
-                    
+
                     var aux = {};
                     aux["descricao"] = tabela[i]["descricao"];
                     aux["titulo"] = tabela[i]["titulo"];
@@ -430,6 +556,6 @@
             }
 
         });
-    </script>
+</script>
 </body>
 </html>

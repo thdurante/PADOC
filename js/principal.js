@@ -1,5 +1,7 @@
 // VARIÁVEIS GLOBAIS
 var GLOBAL_requestResponse;
+var GLOBAL_left;
+var GLOBAL_right;
 
 // INICIALIZAÇÃO BÁSICA PARA TESTES
 var usuario = "fabio@inf.ufg.br";
@@ -64,6 +66,8 @@ function carregaJsonEntrada(){
         success: function(response){
             //PEGANDO VARIÁVEIS GLOBAIS NECESSÁRIAS
             GLOBAL_requestResponse = response;
+            GLOBAL_left = GLOBAL_requestResponse;
+            GLOBAL_left = JSON.stringify(GLOBAL_left);
 
 
             $("#siape").append(response["siape"]);
@@ -432,9 +436,8 @@ function carregaJsonEntrada(){
                 $("#retornoJson").append(retorno);
 
                 $("div[contenteditable='true']").bind("input", function(){
-                    //alert("alterou nome");
-                $(this).css("background-color", "#FDFFDA");
-            });
+                    $(this).css("background-color", "#FDFFDA");
+                });
             }
         }
     }); // fim da requisição ajax
