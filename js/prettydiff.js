@@ -3192,11 +3192,11 @@ var prettydiff = function prettydiff(api) {
                     };
                 if (diffcli === false) {
                     if (inline === true) {
-                        node.push("<h3 class='texttitle'>");
+                        node.push("<h3 class='texttitle'></h3>");
                         node.push(baseTextName);
                         node.push(" vs. ");
                         node.push(newTextName);
-                        node.push("</h3><ol class='count'>");
+                        //node.push("<ol class='count'>");
                     } else {
                         data[0].push("<div class='diff-left'><h3 class='texttitle'>");
                         data[0].push(baseTextName);
@@ -3408,12 +3408,12 @@ var prettydiff = function prettydiff(api) {
                                     foldstart = data[0].length;
                                     if (a === opcodesLength - 1) {
                                         if (baseEnd > newEnd) {
-                                            data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (baseEnd + 3) + "'>");
+                                            //data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (baseEnd + 3) + "'>");
                                         } else {
-                                            data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (newEnd + 3) + "'>");
+                                            //data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (newEnd + 3) + "'>");
                                         }
                                     } else {
-                                        data[0].push("<li class='fold' title='folds from line " + foldcount + " to line xxx'>");
+                                        //data[0].push("<li class='fold' title='folds from line " + foldcount + " to line xxx'>");
                                     }
                                     data[0].push("- " + (baseStart + 1));
                                 } else {
@@ -3421,9 +3421,9 @@ var prettydiff = function prettydiff(api) {
                                     data[0].push(baseStart + 1);
                                 }
                                 data[0].push("</li>");
-                                data[2].push("<li>");
-                                data[2].push(newStart + 1);
-                                data[2].push("</li>");
+                                //data[2].push("<li>");
+                                //data[2].push(newStart + 1);
+                                //data[2].push("</li>");
                                 data[3].push("<li class='");
                                 data[3].push(change);
                                 data[3].push("'>");
@@ -3470,16 +3470,16 @@ var prettydiff = function prettydiff(api) {
                                         if (context < 0 && baseTextArray[baseStart] === newTextArray[newStart] && ((baseTextArray[baseStart - 1] !== newTextArray[newStart - 1]) || (a > 1 && opcodes[a - 1][0] !== "equal" && baseStart === opcodes[a - 1][2]) || (baseStart === 0 && newStart === 0)) && baseTextArray[baseStart + 1] === newTextArray[newStart + 1] && ((baseEnd - baseStart > 1) || (newEnd - newStart > 1))) {
                                             if (a === opcodesLength - 1) {
                                                 if (baseEnd > newEnd) {
-                                                    data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (baseEnd + 2) + "'>- " + (baseStart + 1) + "</li>");
+                                                    //data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (baseEnd + 2) + "'>- " + (baseStart + 1) + "</li>");
                                                 } else {
-                                                    data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (baseEnd + 1 + foldback) + "'>- " + (baseStart + 1) + "</li>");
+                                                    //data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (baseEnd + 1 + foldback) + "'>- " + (baseStart + 1) + "</li>");
                                                 }
                                             } else {
                                                 foldstart = data[0].length;
-                                                data[0].push("<li class='fold' title='folds from line " + (baseStart + 1) + " to line xxx'>- " + (baseStart + 1) + "</li>");
+                                                //data[0].push("<li class='fold' title='folds from line " + (baseStart + 1) + " to line xxx'>- " + (baseStart + 1) + "</li>");
                                             }
                                         } else {
-                                            data[0].push("<li>" + (baseStart + 1) + "</li>");
+                                            //data[0].push("<li>" + (baseStart + 1) + "</li>");
                                         }
                                         data[1].push("<li class='");
                                         if (newStart >= newEnd) {
@@ -3527,7 +3527,7 @@ var prettydiff = function prettydiff(api) {
                             } else if (btest === true || (typeof baseTextArray[baseStart] === "string" && typeof newTextArray[newStart] !== "string")) {
                                 if (baseStart !== Number(data[0][data[0].length - 1].substring(data[0][data[0].length - 1].indexOf(">") + 1, data[0][data[0].length - 1].lastIndexOf("<"))) - 1) {
                                     foldcount += 1;
-                                    data[0].push("<li>" + (baseStart + 1) + "</li>");
+                                    //data[0].push("<li>" + (baseStart + 1) + "</li>");
                                     data[1].push("<li class='delete'>");
                                     data[1].push(baseTextArray[baseStart]);
                                     data[1].push("&#10;</li>");
@@ -3541,7 +3541,7 @@ var prettydiff = function prettydiff(api) {
                                     foldcount += 1;
                                     data[0].push("<li class='empty'>&#8203;&#10;</li>");
                                     data[1].push("<li class='empty'>&#8203;</li>");
-                                    data[2].push("<li>" + (newStart + 1) + "</li>");
+                                    //data[2].push("<li>" + (newStart + 1) + "</li>");
                                     data[3].push("<li class='insert'>");
                                     data[3].push(newTextArray[newStart]);
                                     data[3].push("&#10;</li>");
@@ -3559,10 +3559,10 @@ var prettydiff = function prettydiff(api) {
                     data.push(errorout);
                     return data;
                 }
-                node.push(data[0].join(""));
-                node.push("</ol><ol class=");
+                //node.push(data[0].join(""));
+                //node.push("</ol><ol class=");
                 if (inline === true) {
-                    node.push("'count'>");
+                    //node.push("'count'>");
                 } else {
                     node.push("'data'>");
                     node.push(data[1].join(""));
@@ -3576,8 +3576,8 @@ var prettydiff = function prettydiff(api) {
                 } else {
                     node.push("</ol></div>");
                 }
-                node.push("<p class='author'>Diff view written by <a href='http://prettydiff.com/'>Pretty D" +
-                    "iff</a>.</p></div>");
+                //node.push("<p class='author'>Diff view written by <a href='http://prettydiff.com/'>Pretty D" +
+                   // "iff</a>.</p></div>");
                 return [
                     node.join("").replace(/li class='equal'><\/li/g, "li class='equal'>&#10;</li").replace(/\$#gt;/g, "&gt;").replace(/\$#lt;/g, "&lt;").replace(/\%#lt;/g, "$#lt;").replace(/\%#gt;/g, "$#gt;"), errorout, diffline
                 ];
