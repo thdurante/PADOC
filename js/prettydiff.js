@@ -2581,6 +2581,34 @@ var prettydiff = function prettydiff(api) {
             return source.replace(/\{\-\}/g, "\n");
         };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //Library to compare text input
         diffview      = function diffview(args) {
             var errorout      = 0,
@@ -3196,7 +3224,7 @@ var prettydiff = function prettydiff(api) {
                         node.push(baseTextName);
                         node.push(" vs. ");
                         node.push(newTextName);
-                        //node.push("<ol class='count'>");
+                        node.push("<ol class='count'>");
                     } else {
                         data[0].push("<div class='diff-left'><h3 class='texttitle'>");
                         data[0].push(baseTextName);
@@ -3339,7 +3367,7 @@ var prettydiff = function prettydiff(api) {
                                 data[0][foldstart] = data[0][foldstart].replace("xxx", foldcount);
                             }
                             if (ntest === true || change === "insert") {
-                                data[0].push("<li class='empty'>&#8203;&#10;</li>");
+                                //data[0].push("<li class='empty'>&#8203;&#10;</li>");
                                 data[2].push("<li>");
                                 data[2].push(newStart + 1);
                                 data[2].push("&#10;</li>");
@@ -3352,7 +3380,7 @@ var prettydiff = function prettydiff(api) {
                                 data[0].push("<li>");
                                 data[0].push(baseStart + 1);
                                 data[0].push("</li>");
-                                data[2].push("<li class='empty'>&#8203;&#10;</li>");
+                                //data[2].push("<li class='empty'>&#8203;&#10;</li>");
                                 data[3].push("<li class='delete'>");
                                 data[3].push(baseTextArray[baseStart]);
                                 data[3].push("&#10;</li>");
@@ -3378,7 +3406,7 @@ var prettydiff = function prettydiff(api) {
                                     data[0].push("<li>");
                                     data[0].push(baseStart + 1);
                                     data[0].push("</li>");
-                                    data[2].push("<li class='empty'>&#8203;&#10;</li>");
+                                    //data[2].push("<li class='empty'>&#8203;&#10;</li>");
                                     data[3].push("<li class='delete'>");
                                     if (newStart < newEnd) {
                                         data[3].push(charcompOutput[0]);
@@ -3389,7 +3417,7 @@ var prettydiff = function prettydiff(api) {
                                     foldcount += 1;
                                 }
                                 if (newStart < newEnd) {
-                                    data[0].push("<li class='empty'>&#8203;&#10;</li>");
+                                    //data[0].push("<li class='empty'>&#8203;&#10;</li>");
                                     data[2].push("<li>");
                                     data[2].push(newStart + 1);
                                     data[2].push("</li>");
@@ -3408,12 +3436,12 @@ var prettydiff = function prettydiff(api) {
                                     foldstart = data[0].length;
                                     if (a === opcodesLength - 1) {
                                         if (baseEnd > newEnd) {
-                                            //data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (baseEnd + 3) + "'>");
+                                            data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (baseEnd + 3) + "'>");
                                         } else {
-                                            //data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (newEnd + 3) + "'>");
+                                            data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (newEnd + 3) + "'>");
                                         }
                                     } else {
-                                        //data[0].push("<li class='fold' title='folds from line " + foldcount + " to line xxx'>");
+                                        data[0].push("<li class='fold' title='folds from line " + foldcount + " to line xxx'>");
                                     }
                                     data[0].push("- " + (baseStart + 1));
                                 } else {
@@ -3421,9 +3449,9 @@ var prettydiff = function prettydiff(api) {
                                     data[0].push(baseStart + 1);
                                 }
                                 data[0].push("</li>");
-                                //data[2].push("<li>");
-                                //data[2].push(newStart + 1);
-                                //data[2].push("</li>");
+                                data[2].push("<li>");
+                                data[2].push(newStart + 1);
+                                data[2].push("</li>");
                                 data[3].push("<li class='");
                                 data[3].push(change);
                                 data[3].push("'>");
@@ -3470,22 +3498,22 @@ var prettydiff = function prettydiff(api) {
                                         if (context < 0 && baseTextArray[baseStart] === newTextArray[newStart] && ((baseTextArray[baseStart - 1] !== newTextArray[newStart - 1]) || (a > 1 && opcodes[a - 1][0] !== "equal" && baseStart === opcodes[a - 1][2]) || (baseStart === 0 && newStart === 0)) && baseTextArray[baseStart + 1] === newTextArray[newStart + 1] && ((baseEnd - baseStart > 1) || (newEnd - newStart > 1))) {
                                             if (a === opcodesLength - 1) {
                                                 if (baseEnd > newEnd) {
-                                                    //data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (baseEnd + 2) + "'>- " + (baseStart + 1) + "</li>");
+                                                    data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (baseEnd + 2) + "'>- " + (baseStart + 1) + "</li>");
                                                 } else {
-                                                    //data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (baseEnd + 1 + foldback) + "'>- " + (baseStart + 1) + "</li>");
+                                                    data[0].push("<li class='fold' title='folds from line " + foldcount + " to line " + (baseEnd + 1 + foldback) + "'>- " + (baseStart + 1) + "</li>");
                                                 }
                                             } else {
                                                 foldstart = data[0].length;
-                                                //data[0].push("<li class='fold' title='folds from line " + (baseStart + 1) + " to line xxx'>- " + (baseStart + 1) + "</li>");
+                                                data[0].push("<li class='fold' title='folds from line " + (baseStart + 1) + " to line xxx'>- " + (baseStart + 1) + "</li>");
                                             }
                                         } else {
-                                            //data[0].push("<li>" + (baseStart + 1) + "</li>");
+                                            data[0].push("<li>" + (baseStart + 1) + "</li>");
                                         }
                                         data[1].push("<li class='");
                                         if (newStart >= newEnd) {
                                             data[1].push("delete");
                                         } else if (baseTextArray[baseStart] === "" && newTextArray[newStart] !== "") {
-                                            data[1].push("empty");
+                                            //data[1].push("empty");
                                         } else {
                                             data[1].push(change);
                                         }
@@ -3493,8 +3521,8 @@ var prettydiff = function prettydiff(api) {
                                         data[1].push(charcompOutput[0]);
                                         data[1].push("&#10;</li>");
                                     } else if (ctest === true) {
-                                        data[0].push("<li class='empty'>&#8203;&#10;</li>");
-                                        data[1].push("<li class='empty'>&#8203;</li>");
+                                        //data[0].push("<li class='empty'>&#8203;&#10;</li>");
+                                        //data[1].push("<li class='empty'>&#8203;</li>");
                                     }
                                     if (newStart < newEnd) {
                                         data[2].push("<li>" + (newStart + 1) + "</li>");
@@ -3512,8 +3540,8 @@ var prettydiff = function prettydiff(api) {
                                         data[3].push(charcompOutput[1]);
                                         data[3].push("&#10;</li>");
                                     } else if (ctest === true) {
-                                        data[2].push("<li class='empty'>&#8203;&#10;</li>");
-                                        data[3].push("<li class='empty'>&#8203;</li>");
+                                        //data[2].push("<li class='empty'>&#8203;&#10;</li>");
+                                        //data[3].push("<li class='empty'>&#8203;</li>");
                                     }
                                 } else {
                                     repeat = false;
@@ -3527,21 +3555,21 @@ var prettydiff = function prettydiff(api) {
                             } else if (btest === true || (typeof baseTextArray[baseStart] === "string" && typeof newTextArray[newStart] !== "string")) {
                                 if (baseStart !== Number(data[0][data[0].length - 1].substring(data[0][data[0].length - 1].indexOf(">") + 1, data[0][data[0].length - 1].lastIndexOf("<"))) - 1) {
                                     foldcount += 1;
-                                    //data[0].push("<li>" + (baseStart + 1) + "</li>");
+                                    data[0].push("<li>" + (baseStart + 1) + "</li>");
                                     data[1].push("<li class='delete'>");
                                     data[1].push(baseTextArray[baseStart]);
                                     data[1].push("&#10;</li>");
-                                    data[2].push("<li class='empty'>&#8203;&#10;</li>");
-                                    data[3].push("<li class='empty'>&#8203;</li>");
+                                    //data[2].push("<li class='empty'>&#8203;&#10;</li>");
+                                    //data[3].push("<li class='empty'>&#8203;</li>");
                                 }
                                 btest     = false;
                                 baseStart += 1;
                             } else if (ntest === true || (typeof baseTextArray[baseStart] !== "string" && typeof newTextArray[newStart] === "string")) {
                                 if (newStart !== Number(data[2][data[2].length - 1].substring(data[2][data[2].length - 1].indexOf(">") + 1, data[2][data[2].length - 1].lastIndexOf("<"))) - 1) {
                                     foldcount += 1;
-                                    data[0].push("<li class='empty'>&#8203;&#10;</li>");
-                                    data[1].push("<li class='empty'>&#8203;</li>");
-                                    //data[2].push("<li>" + (newStart + 1) + "</li>");
+                                    //data[0].push("<li class='empty'>&#8203;&#10;</li>");
+                                    //data[1].push("<li class='empty'>&#8203;</li>");
+                                    data[2].push("<li>" + (newStart + 1) + "</li>");
                                     data[3].push("<li class='insert'>");
                                     data[3].push(newTextArray[newStart]);
                                     data[3].push("&#10;</li>");
@@ -3559,8 +3587,8 @@ var prettydiff = function prettydiff(api) {
                     data.push(errorout);
                     return data;
                 }
-                //node.push(data[0].join(""));
-                //node.push("</ol><ol class=");
+                //node.push(data[0].join("")); // TIRA OS NÚMEROS DE LINHAS
+                //node.push("</ol><ol class="); // TIRA OS NÚMEROS DE LINHAS
                 if (inline === true) {
                     //node.push("'count'>");
                 } else {
@@ -3583,6 +3611,43 @@ var prettydiff = function prettydiff(api) {
                 ];
             }());
         };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //Library to parse/beautify/minify JavaScript.
         jspretty      = function jspretty(args) {

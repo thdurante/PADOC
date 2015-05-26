@@ -18,6 +18,11 @@ var fimPeriodo2 = "31/12/2014";
 // console.log("Data Inicio: " +sessionStorage.getItem("dataInicio"));
 // console.log("Data Fim: " +sessionStorage.getItem("dataFim"));
 
+function removeLinha(linha){
+    linha = linha.closest("tr");
+    linha.remove();
+}
+
 
 function imprimeInformacoesDocente(){
     var retorno = "";
@@ -84,7 +89,7 @@ function carregaJsonEntrada(){
                 retorno += ' - ';
                 retorno += response["periodos"][i]["periodo"].fim;
                 retorno += '</h3></div>'; // fim do panel-heading
-                retorno += '<div class="panel-body">';
+                retorno += '<div class="panel-body" style="overflow-x: auto;">';
 
                 // INICIO DADOS DO DOCENTE
                 retorno += '<h4>DADOS DO DOCENTE</h4>';
@@ -133,7 +138,7 @@ function carregaJsonEntrada(){
                 // INICIO ATIVIDADES DE ENSINO
                 retorno += '<h4>ATIVIDADES DE ENSINO</h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-ensino-' +i +'">';
-                retorno += '<thead><tr><th>curso</th><th>disciplina</th><th>cha</th><th>ano</th><th>sem</th><th>turma</th><th>sub</th><th>numero-alunos</th><th>numero-sub</th><th>cht</th><th>chp</th><th>chac</th><th>conjugada</th></tr></thead>';
+                retorno += '<thead><tr><th>curso</th><th>disciplina</th><th>cha</th><th>ano</th><th>sem</th><th>turma</th><th>sub</th><th>numero-alunos</th><th>numero-sub</th><th>cht</th><th>chp</th><th>chac</th><th>conjugada</th><th></th></tr></thead>';
                 retorno += '<tbody>';
                 for (j = 0; j < response["periodos"][i]["atividades-de-ensino"].length; j++) {
                     retorno += '<tr><td><div contenteditable="true">';
@@ -174,7 +179,8 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><div contenteditable="true">';
                     retorno += response["periodos"][i]["atividades-de-ensino"][j].conjugada;
-                    retorno += '</div></td></tr>';
+                    retorno += '</div></td>';
+                    retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES DE ENSINO
@@ -182,7 +188,7 @@ function carregaJsonEntrada(){
                 // INICIO ATIVIDADES DE ORIENTAÇÃO
                 retorno += '<h4>ATIVIDADES DE ORIENTAÇÃO</h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-orientacao-' +i +'">';
-                retorno += '<thead><tr><th>titulo-do-trabalho</th><th>tabela</th><th>estudante</th><th>matricula</th><th>funcao-do-docente</th><th>nivel</th><th>curso</th><th>ies</th><th>cha</th><th>inicio</th><th>fim</th><th>tipo-orientacao</th></tr></thead>';
+                retorno += '<thead><tr><th>titulo-do-trabalho</th><th>tabela</th><th>estudante</th><th>matricula</th><th>funcao-do-docente</th><th>nivel</th><th>curso</th><th>ies</th><th>cha</th><th>inicio</th><th>fim</th><th>tipo-orientacao</th><th></th></tr></thead>';
                 retorno += '<tbody>';
                 for (j = 0; j < response["periodos"][i]["atividades-de-orientacao"].length; j++) {
                     retorno += '<tr><td><div contenteditable="true">';
@@ -220,7 +226,8 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><div contenteditable="true">';
                     retorno += response["periodos"][i]["atividades-de-orientacao"][j]["tipo-orientacao"];
-                    retorno += '</div></td></tr>';
+                    retorno += '</div></td>';
+                    retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this)" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES DE ORIENTAÇÃO
@@ -228,7 +235,7 @@ function carregaJsonEntrada(){
                 // INICIO ATIVIDADES EM PROJETOS
                 retorno += '<h4>ATIVIDADES EM PROJETOS</h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-em-projetos-' +i +'">';
-                retorno += '<thead><tr><th>titulo-do-projeto</th><th>tabela</th><th>unidade-responsavel</th><th>tipo</th><th>situacao</th><th>funcao</th><th>financiado</th><th>cha</th><th>inicio</th><th>fim</th></tr></thead>';
+                retorno += '<thead><tr><th>titulo-do-projeto</th><th>tabela</th><th>unidade-responsavel</th><th>tipo</th><th>situacao</th><th>funcao</th><th>financiado</th><th>cha</th><th>inicio</th><th>fim</th><th></th></tr></thead>';
                 retorno += '<tbody>';
                 for (j = 0; j < response["periodos"][i]["atividades-em-projetos"].length; j++) {
                     retorno += '<tr><td><div contenteditable="true">';
@@ -260,7 +267,8 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><div contenteditable="true">';
                     retorno += response["periodos"][i]["atividades-em-projetos"][j]["periodo"]["fim"];
-                    retorno += '</div></td></tr>';
+                    retorno += '</div></td>';
+                    retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this)" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES EM PROJETOS
@@ -268,7 +276,7 @@ function carregaJsonEntrada(){
                 // INICIO ATIVIDADES DE EXTENSÃO
                 retorno += '<h4>ATIVIDADES DE EXTENSÃO</h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-extensao-' +i +'">';
-                retorno += '<thead><tr><th>tabela</th><th>cha</th><th>inicio</th><th>fim</th><th>descricao</th><th>clientela</th></tr></thead>';
+                retorno += '<thead><tr><th>tabela</th><th>cha</th><th>inicio</th><th>fim</th><th>descricao</th><th>clientela</th><th></th></tr></thead>';
                 retorno += '<tbody>';
                 for (j = 0; j < response["periodos"][i]["atividades-de-extensao"].length; j++) {
                     retorno += '<tr><td><div contenteditable="true">';
@@ -288,7 +296,8 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><div contenteditable="true">';
                     retorno += response["periodos"][i]["atividades-de-extensao"][j]["clientela"];
-                    retorno += '</div></td></tr>';
+                    retorno += '</div></td>';
+                    retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this)" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES DE EXTENSÃO
@@ -296,7 +305,7 @@ function carregaJsonEntrada(){
                 // INICIO ATIVIDADES DE QUALIFICAÇÃO
                 retorno += '<h4>ATIVIDADES DE QUALIFICAÇÃO</h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-qualificacao-' +i +'">';
-                retorno += '<thead><tr><th>tabela</th><th>descricao</th><th>cha</th><th>inicio</th><th>fim</th></tr></thead>';
+                retorno += '<thead><tr><th>tabela</th><th>descricao</th><th>cha</th><th>inicio</th><th>fim</th><th></th></tr></thead>';
                 retorno += '<tbody>';
                 for (j = 0; j < response["periodos"][i]["atividades-de-qualificacao"].length; j++) {
                     retorno += '<tr><td><div contenteditable="true">';
@@ -313,7 +322,8 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><div contenteditable="true">';
                     retorno += response["periodos"][i]["atividades-de-qualificacao"][j]["periodo"]["fim"];
-                    retorno += '</div></td></tr>';
+                    retorno += '</div></td>';
+                    retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this)" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES DE QUALIFICAÇÃO
@@ -321,7 +331,7 @@ function carregaJsonEntrada(){
                 // INICIO ATIVIDADES ACADÊMICAS ESPECIAIS
                 retorno += '<h4>ATIVIDADES ACADÊMICAS ESPECIAIS</h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-academicas-especiais-' +i +'">';
-                retorno += '<thead><tr><th>tabela</th><th>cha</th><th>inicio</th><th>fim</th><th>descricao</th><th>clientela</th></tr></thead>';
+                retorno += '<thead><tr><th>tabela</th><th>cha</th><th>inicio</th><th>fim</th><th>descricao</th><th>clientela</th><th></th></tr></thead>';
                 retorno += '<tbody>';
                 for (j = 0; j < response["periodos"][i]["atividades-academicas-especiais"].length; j++) {
                     retorno += '<tr><td><div contenteditable="true">';
@@ -341,7 +351,8 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><div contenteditable="true">';
                     retorno += response["periodos"][i]["atividades-academicas-especiais"][j]["clientela"];
-                    retorno += '</div></td></tr>';
+                    retorno += '</div></td>';
+                    retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this)" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES ACADÊMICAS ESPECIAIS
@@ -349,7 +360,7 @@ function carregaJsonEntrada(){
                 // INICIO ATIVIDADES ADMINISTRATIVAS
                 retorno += '<h4>ATIVIDADES ADMINISTRATIVAS</h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-administrativas-' +i +'">';
-                retorno += '<thead><tr><th>tabela</th><th>cha</th><th>inicio</th><th>fim</th><th>descricao</th><th>emissor</th><th>orgao-servido</th><th>portaria</th></tr></thead>';
+                retorno += '<thead><tr><th>tabela</th><th>cha</th><th>inicio</th><th>fim</th><th>descricao</th><th>emissor</th><th>orgao-servido</th><th>portaria</th><th></th></tr></thead>';
                 retorno += '<tbody>';
                 for (j = 0; j < response["periodos"][i]["atividades-administrativas"].length; j++) {
                     retorno += '<tr><td><div contenteditable="true">';
@@ -375,7 +386,8 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><div contenteditable="true">';
                     retorno += response["periodos"][i]["atividades-administrativas"][j]["portaria"];
-                    retorno += '</div></td></tr>';
+                    retorno += '</div></td>';
+                    retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this)" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES ADMINISTRATIVAS
@@ -383,7 +395,7 @@ function carregaJsonEntrada(){
                 // INICIO PRODUTOS
                 retorno += '<h4>PRODUTOS</h4>';
                 retorno += '<table class="table table-bordered table-editable" id="produtos-' +i +'">';
-                retorno += '<thead><tr><th>descricao</th><th>titulo</th><th>autoria</th><th>associacao-do-produto</th><th>projeto-associado</th><th>veiculacao</th><th>local</th><th>data</th><th>ano-da-publicacao</th><th>pagina-inicial</th><th>pagina-final</th><th>numero-de-paginas</th><th>numero-da-patente</th></tr></thead>';
+                retorno += '<thead><tr><th>descricao</th><th>titulo</th><th>autoria</th><th>associacao-do-produto</th><th>projeto-associado</th><th>veiculacao</th><th>local</th><th>data</th><th>ano-da-publicacao</th><th>pagina-inicial</th><th>pagina-final</th><th>numero-de-paginas</th><th>numero-da-patente</th><th></th></tr></thead>';
                 retorno += '<tbody>';
                 for (j = 0; j < response["periodos"][i]["produtos"].length; j++) {
                     retorno += '<tr><td><div contenteditable="true">';
@@ -424,7 +436,8 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><div contenteditable="true">';
                     retorno += response["periodos"][i]["produtos"][j]["numero-da-patente"];
-                    retorno += '</div></td></tr>';
+                    retorno += '</div></td>';
+                    retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this)" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM PRODUTOS
