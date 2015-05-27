@@ -23,6 +23,37 @@ function removeLinha(linha){
     linha.remove();
 }
 
+function insereLinhaAtividadeDeEnsino(id){
+    $('#'+id+'').append('<tr><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+}
+
+function insereLinhaAtividadeDeOrientacao(id){
+    $('#'+id+'').append('<tr><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+}
+
+function insereLinhaAtividadeEmProjeto(id){
+    $('#'+id+'').append('<tr><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+}
+
+function insereLinhaAtividadeDeExtensao(id){
+    $('#'+id+'').append('<tr><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+}
+
+function insereLinhaAtividadeDeQualificacao(id){
+    $('#'+id+'').append('<tr><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+}
+
+function insereLinhaAtividadeAcademicaEspecial(id){
+    $('#'+id+'').append('<tr><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+}
+
+function insereLinhaAtividadeAdministrativa(id){
+    $('#'+id+'').append('<tr><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+}
+
+function insereLinhaProduto(id){
+    $('#'+id+'').append('<tr><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+}
 
 function imprimeInformacoesDocente(){
     var retorno = "";
@@ -127,7 +158,7 @@ function carregaJsonEntrada(){
                 // FIM DADOS DO DOCENTE
 
                 // INICIO AFASTAMENTO
-                retorno += '<h4>AFASTAMENTO</h4>';
+                retorno += '<h4>AFASTAMENTO <button type="button" style="border-radius: 50px;" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="afastamento-' +i +'">';
                 retorno += '<thead><tr><th>AFASTAMENTO</th></tr></thead>';
                 retorno += '<tbody><tr>';
@@ -136,7 +167,7 @@ function carregaJsonEntrada(){
                 // FIM AFASTAMENTO
 
                 // INICIO ATIVIDADES DE ENSINO
-                retorno += '<h4>ATIVIDADES DE ENSINO</h4>';
+                retorno += '<h4>ATIVIDADES DE ENSINO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeEnsino(\'atividades-de-ensino-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-ensino-' +i +'">';
                 retorno += '<thead><tr><th>curso</th><th>disciplina</th><th>cha</th><th>ano</th><th>sem</th><th>turma</th><th>sub</th><th>numero-alunos</th><th>numero-sub</th><th>cht</th><th>chp</th><th>chac</th><th>conjugada</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -186,7 +217,7 @@ function carregaJsonEntrada(){
                 // FIM ATIVIDADES DE ENSINO
 
                 // INICIO ATIVIDADES DE ORIENTAÇÃO
-                retorno += '<h4>ATIVIDADES DE ORIENTAÇÃO</h4>';
+                retorno += '<h4>ATIVIDADES DE ORIENTAÇÃO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeOrientacao(\'atividades-de-orientacao-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-orientacao-' +i +'">';
                 retorno += '<thead><tr><th>titulo-do-trabalho</th><th>tabela</th><th>estudante</th><th>matricula</th><th>funcao-do-docente</th><th>nivel</th><th>curso</th><th>ies</th><th>cha</th><th>inicio</th><th>fim</th><th>tipo-orientacao</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -233,7 +264,7 @@ function carregaJsonEntrada(){
                 // FIM ATIVIDADES DE ORIENTAÇÃO
 
                 // INICIO ATIVIDADES EM PROJETOS
-                retorno += '<h4>ATIVIDADES EM PROJETOS</h4>';
+                retorno += '<h4>ATIVIDADES EM PROJETOS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeEmProjeto(\'atividades-em-projetos-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-em-projetos-' +i +'">';
                 retorno += '<thead><tr><th>titulo-do-projeto</th><th>tabela</th><th>unidade-responsavel</th><th>tipo</th><th>situacao</th><th>funcao</th><th>financiado</th><th>cha</th><th>inicio</th><th>fim</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -274,7 +305,7 @@ function carregaJsonEntrada(){
                 // FIM ATIVIDADES EM PROJETOS
 
                 // INICIO ATIVIDADES DE EXTENSÃO
-                retorno += '<h4>ATIVIDADES DE EXTENSÃO</h4>';
+                retorno += '<h4>ATIVIDADES DE EXTENSÃO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeExtensao(\'atividades-de-extensao-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-extensao-' +i +'">';
                 retorno += '<thead><tr><th>tabela</th><th>cha</th><th>inicio</th><th>fim</th><th>descricao</th><th>clientela</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -303,7 +334,7 @@ function carregaJsonEntrada(){
                 // FIM ATIVIDADES DE EXTENSÃO
 
                 // INICIO ATIVIDADES DE QUALIFICAÇÃO
-                retorno += '<h4>ATIVIDADES DE QUALIFICAÇÃO</h4>';
+                retorno += '<h4>ATIVIDADES DE QUALIFICAÇÃO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeQualificacao(\'atividades-de-qualificacao-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-qualificacao-' +i +'">';
                 retorno += '<thead><tr><th>tabela</th><th>descricao</th><th>cha</th><th>inicio</th><th>fim</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -329,7 +360,7 @@ function carregaJsonEntrada(){
                 // FIM ATIVIDADES DE QUALIFICAÇÃO
 
                 // INICIO ATIVIDADES ACADÊMICAS ESPECIAIS
-                retorno += '<h4>ATIVIDADES ACADÊMICAS ESPECIAIS</h4>';
+                retorno += '<h4>ATIVIDADES ACADÊMICAS ESPECIAIS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeAcademicaEspecial(\'atividades-academicas-especiais-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-academicas-especiais-' +i +'">';
                 retorno += '<thead><tr><th>tabela</th><th>cha</th><th>inicio</th><th>fim</th><th>descricao</th><th>clientela</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -358,7 +389,7 @@ function carregaJsonEntrada(){
                 // FIM ATIVIDADES ACADÊMICAS ESPECIAIS
 
                 // INICIO ATIVIDADES ADMINISTRATIVAS
-                retorno += '<h4>ATIVIDADES ADMINISTRATIVAS</h4>';
+                retorno += '<h4>ATIVIDADES ADMINISTRATIVAS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeAdministrativa(\'atividades-administrativas-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-administrativas-' +i +'">';
                 retorno += '<thead><tr><th>tabela</th><th>cha</th><th>inicio</th><th>fim</th><th>descricao</th><th>emissor</th><th>orgao-servido</th><th>portaria</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -393,7 +424,7 @@ function carregaJsonEntrada(){
                 // FIM ATIVIDADES ADMINISTRATIVAS
 
                 // INICIO PRODUTOS
-                retorno += '<h4>PRODUTOS</h4>';
+                retorno += '<h4>PRODUTOS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaProduto(\'produtos-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="produtos-' +i +'">';
                 retorno += '<thead><tr><th>descricao</th><th>titulo</th><th>autoria</th><th>associacao-do-produto</th><th>projeto-associado</th><th>veiculacao</th><th>local</th><th>data</th><th>ano-da-publicacao</th><th>pagina-inicial</th><th>pagina-final</th><th>numero-de-paginas</th><th>numero-da-patente</th><th></th></tr></thead>';
                 retorno += '<tbody>';
