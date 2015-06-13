@@ -212,23 +212,16 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- PRETTY DIFF -->
-                    <!--<span class="clear"></span><div id="diffoutput">
-                    <iframe id="iFrame" width="800px" height="800px" scrolling="auto" frameborder="1" align="center" src="teste.html">
-                        
-                    </iframe>-->
                 </div>
             </div>
         </div>
 
         <script type="text/javascript">
         $(document).ready(function(){
+
             // POPULA A PÁGINA
             imprimeInformacoesDocente();
             carregaJsonEntrada();
-
-
 
             $("#btnComputarHoras").click(function (){
 
@@ -262,7 +255,7 @@
                     idDaTabela = "atividades-de-ensino-" +i;
 
                     // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
-                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                    for(var j=0; j<cont_atividadesDeEnsino['"periodo-' +i +'"']; j++){
                         idDaLinha = "atividadesDeEnsino-linha" +j + "-periodo" +i;
                         if(document.getElementById(idDaLinha) == null){
                             //alert("id não existe");
@@ -291,7 +284,7 @@
                     idDaTabela = "atividades-de-orientacao-" +i;
 
                     // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
-                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                    for(var j=0; j<cont_atividadesDeOrientacao['"periodo-' +i +'"']; j++){
                         idDaLinha = "atividadesDeOrientacao-linha" +j + "-periodo" +i;
                         if(document.getElementById(idDaLinha) == null){
                             //alert("id não existe");
@@ -315,7 +308,7 @@
                     idDaTabela = "atividades-em-projetos-" +i;
 
                     // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
-                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                    for(var j=0; j<cont_atividadesEmProjetos['"periodo-' +i +'"']; j++){
                         idDaLinha = "atividadesEmProjetos-linha" +j + "-periodo" +i;
                         if(document.getElementById(idDaLinha) == null){
                             //alert("id não existe");
@@ -339,7 +332,7 @@
                     idDaTabela = "atividades-de-extensao-" +i;
 
                     // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
-                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                    for(var j=0; j<cont_atividadesDeExtensao['"periodo-' +i +'"']; j++){
                         idDaLinha = "atividadesDeExtensao-linha" +j + "-periodo" +i;
                         if(document.getElementById(idDaLinha) == null){
                             //alert("id não existe");
@@ -363,7 +356,7 @@
                     idDaTabela = "atividades-de-qualificacao-" +i;
 
                     // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
-                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                    for(var j=0; j<cont_atividadesDeQualificacao['"periodo-' +i +'"']; j++){
                         idDaLinha = "atividadesDeQualificacao-linha" +j + "-periodo" +i;
                         if(document.getElementById(idDaLinha) == null){
                             //alert("id não existe");
@@ -387,7 +380,7 @@
                     idDaTabela = "atividades-academicas-especiais-" +i;
 
                     // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
-                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                    for(var j=0; j<cont_atividadesAcademicasEspeciais['"periodo-' +i +'"']; j++){
                         idDaLinha = "atividadesAcademicasEspeciais-linha" +j + "-periodo" +i;
                         if(document.getElementById(idDaLinha) == null){
                             //alert("id não existe");
@@ -411,7 +404,7 @@
                     idDaTabela = "atividades-administrativas-" +i;
 
                     // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
-                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                    for(var j=0; j<cont_atividadesAdministrativas['"periodo-' +i +'"']; j++){
                         idDaLinha = "atividadesAdministrativas-linha" +j + "-periodo" +i;
                         if(document.getElementById(idDaLinha) == null){
                             //alert("id não existe");
@@ -445,34 +438,6 @@
             });
 
             $("#btnExibirLogDeMudancas").click(function(){
-
-
-
-                //console.log("TAMANHO DO ARRAY LINHAS ORIGINAIS: " +arr_TR_linhasOriginais.length);
-                //for(var r=0; r<arr_TR_linhasOriginais.length; r++){
-                    //console.log(arr_TR_linhasOriginais[r]);
-                //}
-
-
-                // LINHAS ORIGINAIS
-                //console.log(arr_TR_linhasOriginais);
-                //for(var t=0; t<arr_TR_linhasOriginais.length; t++){
-                    //console.log(arr_TR_linhasOriginais[t]);
-                //}
-
-                //console.log("TAMANHO DO ARRAY LINHAS EDITADAS: " +arr_TR_linhasAlteradas.length);
-
-
-                // LINHAS REMOVIDAS
-                //console.log("TAMANHO DO ARRAY LINHAS REMOVIDAS: " +arr_TR_linhasRemovidas.length);
-                //console.log(arr_TR_linhasOriginais);
-                //for(var t=0; t<arr_TR_linhasRemovidas.length; t++){
-                    //console.log(arr_TR_linhasRemovidas[t]);
-                //}
-
-
-
-
 
                 /*
 
@@ -584,7 +549,6 @@
 
             */
 
-
                 // RETURN -- REMOÇÃO -- 100% OK
                 for(var r=0; r<arr_TR_linhasRemovidas.length; r++){
                     var report = "";
@@ -662,7 +626,6 @@
                 arr_ID_linhasAdicionadas = [];
 
             });
-
 
             // FUNÇÕES QUE AUXILIAM NA FORMATAÇÃO DO JSON DE RETORNO
             function formataPeriodo(GLOBAL){

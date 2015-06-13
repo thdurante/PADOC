@@ -305,7 +305,7 @@ function carregaJsonEntrada(){
 
                 // INICIO ATIVIDADES DE ENSINO
                 cont_atividadesDeEnsino['"periodo-' +i +'"'] = response["periodos"][i]["atividades-de-ensino"].length;
-                console.log("QTD atividades-de-ensino-periodo-" +i +": " +cont_atividadesDeEnsino['"periodo-' +i +'"']);
+                //console.log("QTD atividades-de-ensino-periodo-" +i +": " +cont_atividadesDeEnsino['"periodo-' +i +'"']);
 
                 retorno += '<h4>ATIVIDADES DE ENSINO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeEnsino_generic(\'atividades-de-ensino-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-ensino-' +i +'">';
@@ -359,7 +359,7 @@ function carregaJsonEntrada(){
 
                 // INICIO ATIVIDADES DE ORIENTAÇÃO
                 cont_atividadesDeOrientacao['"periodo-' +i +'"'] = response["periodos"][i]["atividades-de-orientacao"].length;
-                console.log("QTD atividades-de-orientacao-periodo-" +i +": " +cont_atividadesDeOrientacao['"periodo-' +i +'"']);
+                //console.log("QTD atividades-de-orientacao-periodo-" +i +": " +cont_atividadesDeOrientacao['"periodo-' +i +'"']);
 
 
                 retorno += '<h4>ATIVIDADES DE ORIENTAÇÃO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeOrientacao_generic(\'atividades-de-orientacao-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
@@ -411,7 +411,7 @@ function carregaJsonEntrada(){
 
                 // INICIO ATIVIDADES EM PROJETOS
                 cont_atividadesEmProjetos['"periodo-' +i +'"'] = response["periodos"][i]["atividades-em-projetos"].length;
-                console.log("QTD atividades-em-projetos-periodo-" +i +": " +cont_atividadesEmProjetos['"periodo-' +i +'"']);
+                //console.log("QTD atividades-em-projetos-periodo-" +i +": " +cont_atividadesEmProjetos['"periodo-' +i +'"']);
 
                 retorno += '<h4>ATIVIDADES EM PROJETOS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeEmProjeto_generic(\'atividades-em-projetos-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-em-projetos-' +i +'">';
@@ -456,7 +456,7 @@ function carregaJsonEntrada(){
 
                 // INICIO ATIVIDADES DE EXTENSÃO
                 cont_atividadesDeExtensao['"periodo-' +i +'"'] = response["periodos"][i]["atividades-de-extensao"].length;
-                console.log("QTD atividades-de-extensao-periodo-" +i +": " +cont_atividadesDeExtensao['"periodo-' +i +'"']);
+                //console.log("QTD atividades-de-extensao-periodo-" +i +": " +cont_atividadesDeExtensao['"periodo-' +i +'"']);
 
                 retorno += '<h4>ATIVIDADES DE EXTENSÃO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeExtensao_generic(\'atividades-de-extensao-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-extensao-' +i +'">';
@@ -489,7 +489,7 @@ function carregaJsonEntrada(){
 
                 // INICIO ATIVIDADES DE QUALIFICAÇÃO
                 cont_atividadesDeQualificacao['"periodo-' +i +'"'] = response["periodos"][i]["atividades-de-qualificacao"].length;
-                console.log("QTD atividades-de-qualificacao-periodo-" +i +": " +cont_atividadesDeQualificacao['"periodo-' +i +'"']);
+                //console.log("QTD atividades-de-qualificacao-periodo-" +i +": " +cont_atividadesDeQualificacao['"periodo-' +i +'"']);
 
                 retorno += '<h4>ATIVIDADES DE QUALIFICAÇÃO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeQualificacao_generic(\'atividades-de-qualificacao-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-qualificacao-' +i +'">';
@@ -519,7 +519,7 @@ function carregaJsonEntrada(){
 
                 // INICIO ATIVIDADES ACADÊMICAS ESPECIAIS
                 cont_atividadesAcademicasEspeciais['"periodo-' +i +'"'] = response["periodos"][i]["atividades-academicas-especiais"].length;
-                console.log("QTD atividades-academicas-especiais-periodo-" +i +": " +cont_atividadesAcademicasEspeciais['"periodo-' +i +'"']);
+                //console.log("QTD atividades-academicas-especiais-periodo-" +i +": " +cont_atividadesAcademicasEspeciais['"periodo-' +i +'"']);
 
                 retorno += '<h4>ATIVIDADES ACADÊMICAS ESPECIAIS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeAcademicaEspecial_generic(\'atividades-academicas-especiais-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-academicas-especiais-' +i +'">';
@@ -552,7 +552,7 @@ function carregaJsonEntrada(){
 
                 // INICIO ATIVIDADES ADMINISTRATIVAS
                 cont_atividadesAdministrativas['"periodo-' +i +'"'] = response["periodos"][i]["atividades-administrativas"].length;
-                console.log("QTD atividades-administrativas-periodo-" +i +": " +cont_atividadesAdministrativas['"periodo-' +i +'"']);
+                //console.log("QTD atividades-administrativas-periodo-" +i +": " +cont_atividadesAdministrativas['"periodo-' +i +'"']);
 
                 retorno += '<h4>ATIVIDADES ADMINISTRATIVAS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeAdministrativa_generic(\'atividades-administrativas-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-administrativas-' +i +'">';
@@ -591,7 +591,7 @@ function carregaJsonEntrada(){
 
                 // INICIO PRODUTOS
                 cont_produtos['"periodo-' +i +'"'] = response["periodos"][i]["produtos"].length;
-                console.log("QTD produtos-periodo-" +i +": " +cont_produtos['"periodo-' +i +'"']);
+                //console.log("QTD produtos-periodo-" +i +": " +cont_produtos['"periodo-' +i +'"']);
 
                 retorno += '<h4>PRODUTOS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaProduto_generic(\'produtos-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="produtos-' +i +'">';
