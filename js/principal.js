@@ -533,13 +533,30 @@ function carregaJsonEntrada(){
 
 
 
-            }
+            } // fim do for periodos
 
-            $('.normal').each(function (){
+            // ESTÁ PASSANDO SOMENTE O TEXTO NÃO FORMATADO,AINDA FALTA FORMATAR OU ENTÃO TENTAR PASSAR AO INVÉS DO TEXTO, UM OBJETO
+            /*$('.normal').each(function (){
                 //console.log($(this)[0]);
                 //console.log("ID" + $(this).attr("id"));
                 //console.log("VALOR" + $(this).text());
                 mapAux[$(this).attr("id")] = $(this).text();
+            });*/
+
+            $('.normal').each(function (){
+                var linhaFormatada = "{";
+                var trChildNodes = this.childNodes;
+                var cont = 0;
+                for(var i=0; i<trChildNodes.length-1; i++){
+                    linhaFormatada += '"' +this.childNodes.item(i).textContent +'"';
+                    if(cont < trChildNodes.length-2){
+                        linhaFormatada += ", ";
+                    }
+                    cont++;
+                }
+                linhaFormatada += "}";
+                console.log(linhaFormatada);
+                mapAux[$(this).attr("id")] = linhaFormatada;
             });
 
 
