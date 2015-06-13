@@ -608,9 +608,30 @@
                 }
 
                 // RETURN -- ADIÇÃO
+                $("#listaDeLinhasInseridas").html("");
+                $('.adicionada').each(function (){
+                    var report = "";
+                    var line = "{";
+                    var fragments = (this.id).split("-");
+                    var trChildNodes = this.childNodes;
+                    var cont = 0;
+                    for(var t=0; t<trChildNodes.length-1; t++){
+                        line += '"' +this.childNodes.item(t).textContent +'"';
+                        if(cont < trChildNodes.length-2){
+                            line += ", ";
+                        }
+                        cont++;
+                    }
+                    line += "}";
+                    report += "<li><strong>TABELA: </strong>" +fragments[0] +"</li>";
+                    report += "<li><strong>PERÍODO: </strong>" +GLOBAL_requestResponse["periodos"][parseInt(fragments[2].charAt(fragments[2].length-1))]["periodo"].inicio + " - " +GLOBAL_requestResponse["periodos"][parseInt(fragments[2].charAt(fragments[2].length-1))]["periodo"].fim +"</li>";
+                    report += "<li><strong>ID: </strong>" +this.id +"</li>";
+                    report += "<strong>REGISTRO ADICIONADO: </strong>" +line +"</li><br><br>";
+                    $("#listaDeLinhasInseridas").append(report);
+                });
 
 
-                // RETURN -- EDIÇÃO
+                // RETURN -- EDIÇÃO -- 100% OK
                 $("#listaDeLinhasEditadas").html("");
                 $('.editada').each(function (){
                     var report = "";
@@ -860,10 +881,6 @@
 
                 return arrAux;
             }
-
-
-
-
 
         });
 </script>

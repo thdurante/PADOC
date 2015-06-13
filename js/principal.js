@@ -18,14 +18,14 @@ var cont_periodos = 0;
 // CONTADOR DE REGISTROS DE CADA TABELA
 var cont_dadosDoDocente = 0;
 var cont_afastamento = 0;
-var cont_atividadesDeEnsino = 0;
-var cont_atividadesDeOrientacao = 0;
-var cont_atividadesEmProjetos = 0;
-var cont_atividadesDeExtensao = 0;
-var cont_atividadesDeQualificacao = 0;
-var cont_atividadesAcademicasEspeciais = 0;
-var cont_atividadesAdministrativas = 0;
-var cont_produtos = 0;
+var cont_atividadesDeEnsino = {};
+var cont_atividadesDeOrientacao = {};
+var cont_atividadesEmProjetos = {};
+var cont_atividadesDeExtensao = {};
+var cont_atividadesDeQualificacao = {};
+var cont_atividadesAcademicasEspeciais = {};
+var cont_atividadesAdministrativas = {};
+var cont_produtos = {};
 
 // ------------------------- EDIÇÃO
 var arr_TR_linhasOriginais = []; // recebe as tr
@@ -51,38 +51,142 @@ function removeLinha(linha){
     document.getElementById(linha).remove();
 }
 
-function insereLinhaAtividadeDeEnsino(idTabela, idTr){
-    $('#'+idTabela+'').append('<tr id="' +idTr +'"><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
-    cont_atividadesDeEnsino++;
-    //console.log(cont_atividadesDeEnsino);
+function insereLinhaAtividadeDeEnsino_generic(idTabela){
+
+    var periodo = idTabela.charAt(idTabela.length-1);
+    var idTr = "atividadesDeEnsino-linha" +cont_atividadesDeEnsino['"periodo-' +periodo +'"'] +"-periodo" +periodo;
+    $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+
+    // incrementa o contador de atividades de ensino
+    cont_atividadesDeEnsino['"periodo-' +periodo +'"'] = cont_atividadesDeEnsino['"periodo-' +periodo +'"'] + 1;
+
+    // visual
+    var trChildNodes = document.getElementById(idTr).childNodes;
+    for(var t=0; t<trChildNodes.length-1; t++) {
+        document.getElementById(idTr).childNodes.item(t).childNodes.item(0).setAttribute("style", "background-color: #FDFFDA;");
+    }
 }
 
-function insereLinhaAtividadeDeOrientacao(idTabela){
-    $('#'+idTabela+'').append('<tr><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+function insereLinhaAtividadeDeOrientacao_generic(idTabela){
+
+    var periodo = idTabela.charAt(idTabela.length-1);
+    var idTr = "atividadesDeOrientacao-linha" +cont_atividadesDeOrientacao['"periodo-' +periodo +'"'] +"-periodo" +periodo;
+    $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+
+    // incrementa o contador de atividades de ensino
+    cont_atividadesDeOrientacao['"periodo-' +periodo +'"'] = cont_atividadesDeOrientacao['"periodo-' +periodo +'"'] + 1;
+
+    // visual
+    var trChildNodes = document.getElementById(idTr).childNodes;
+    for(var t=0; t<trChildNodes.length-1; t++) {
+        document.getElementById(idTr).childNodes.item(t).childNodes.item(0).setAttribute("style", "background-color: #FDFFDA;");
+    }
 }
 
-function insereLinhaAtividadeEmProjeto(idTabela){
-    $('#'+idTabela+'').append('<tr><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+function insereLinhaAtividadeEmProjeto_generic(idTabela){
+
+    var periodo = idTabela.charAt(idTabela.length-1);
+    var idTr = "atividadesEmProjetos-linha" +cont_atividadesEmProjetos['"periodo-' +periodo +'"'] +"-periodo" +periodo;
+
+    $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+
+    // incrementa o contador de atividades de ensino
+    cont_atividadesEmProjetos['"periodo-' +periodo +'"'] = cont_atividadesEmProjetos['"periodo-' +periodo +'"'] + 1;
+
+    // visual
+    var trChildNodes = document.getElementById(idTr).childNodes;
+    for(var t=0; t<trChildNodes.length-1; t++) {
+        document.getElementById(idTr).childNodes.item(t).childNodes.item(0).setAttribute("style", "background-color: #FDFFDA;");
+    }
 }
 
-function insereLinhaAtividadeDeExtensao(idTabela){
-    $('#'+idTabela+'').append('<tr><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+function insereLinhaAtividadeDeExtensao_generic(idTabela){
+
+    var periodo = idTabela.charAt(idTabela.length-1);
+    var idTr = "atividadesDeExtensao-linha" +cont_atividadesDeExtensao['"periodo-' +periodo +'"'] +"-periodo" +periodo;
+
+    $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+
+    // incrementa o contador de atividades de ensino
+    cont_atividadesDeExtensao['"periodo-' +periodo +'"'] = cont_atividadesDeExtensao['"periodo-' +periodo +'"'] + 1;
+
+    // visual
+    var trChildNodes = document.getElementById(idTr).childNodes;
+    for(var t=0; t<trChildNodes.length-1; t++) {
+        document.getElementById(idTr).childNodes.item(t).childNodes.item(0).setAttribute("style", "background-color: #FDFFDA;");
+    }
 }
 
-function insereLinhaAtividadeDeQualificacao(idTabela){
-    $('#'+idTabela+'').append('<tr><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+function insereLinhaAtividadeDeQualificacao_generic(idTabela){
+
+    var periodo = idTabela.charAt(idTabela.length-1);
+    var idTr = "atividadesDeQualificacao-linha" +cont_atividadesDeQualificacao['"periodo-' +periodo +'"'] +"-periodo" +periodo;
+
+    $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+
+
+    // incrementa o contador de atividades de ensino
+    cont_atividadesDeQualificacao['"periodo-' +periodo +'"'] = cont_atividadesDeQualificacao['"periodo-' +periodo +'"'] + 1;
+
+    // visual
+    var trChildNodes = document.getElementById(idTr).childNodes;
+    for(var t=0; t<trChildNodes.length-1; t++) {
+        document.getElementById(idTr).childNodes.item(t).childNodes.item(0).setAttribute("style", "background-color: #FDFFDA;");
+    }
 }
 
-function insereLinhaAtividadeAcademicaEspecial(idTabela){
-    $('#'+idTabela+'').append('<tr><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+function insereLinhaAtividadeAcademicaEspecial_generic(idTabela){
+
+    var periodo = idTabela.charAt(idTabela.length-1);
+    var idTr = "atividadesAcademicasEspeciais-linha" +cont_atividadesAcademicasEspeciais['"periodo-' +periodo +'"'] +"-periodo" +periodo;
+
+    $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+
+
+    // incrementa o contador de atividades de ensino
+    cont_atividadesAcademicasEspeciais['"periodo-' +periodo +'"'] = cont_atividadesAcademicasEspeciais['"periodo-' +periodo +'"'] + 1;
+
+    // visual
+    var trChildNodes = document.getElementById(idTr).childNodes;
+    for(var t=0; t<trChildNodes.length-1; t++) {
+        document.getElementById(idTr).childNodes.item(t).childNodes.item(0).setAttribute("style", "background-color: #FDFFDA;");
+    }
 }
 
-function insereLinhaAtividadeAdministrativa(idTabela){
-    $('#'+idTabela+'').append('<tr><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+function insereLinhaAtividadeAdministrativa_generic(idTabela){
+
+    var periodo = idTabela.charAt(idTabela.length-1);
+    var idTr = "atividadesAdministrativas-linha" +cont_atividadesAdministrativas['"periodo-' +periodo +'"'] +"-periodo" +periodo;
+
+    $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+
+
+    // incrementa o contador de atividades de ensino
+    cont_atividadesAdministrativas['"periodo-' +periodo +'"'] = cont_atividadesAdministrativas['"periodo-' +periodo +'"'] + 1;
+
+    // visual
+    var trChildNodes = document.getElementById(idTr).childNodes;
+    for(var t=0; t<trChildNodes.length-1; t++) {
+        document.getElementById(idTr).childNodes.item(t).childNodes.item(0).setAttribute("style", "background-color: #FDFFDA;");
+    }
 }
 
-function insereLinhaProduto(idTabela){
-    $('#'+idTabela+'').append('<tr><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(this);" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+function insereLinhaProduto_generic(idTabela){
+
+    var periodo = idTabela.charAt(idTabela.length-1);
+    var idTr = "produtos-linha" +cont_produtos['"periodo-' +periodo +'"'] +"-periodo" +periodo;
+
+    $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+
+
+    // incrementa o contador de atividades de ensino
+    cont_produtos['"periodo-' +periodo +'"'] = cont_produtos['"periodo-' +periodo +'"'] + 1;
+
+    // visual
+    var trChildNodes = document.getElementById(idTr).childNodes;
+    for(var t=0; t<trChildNodes.length-1; t++) {
+        document.getElementById(idTr).childNodes.item(t).childNodes.item(0).setAttribute("style", "background-color: #FDFFDA;");
+    }
 }
 
 function imprimeInformacoesDocente(){
@@ -200,10 +304,10 @@ function carregaJsonEntrada(){
                 // FIM AFASTAMENTO
 
                 // INICIO ATIVIDADES DE ENSINO
-                cont_atividadesDeEnsino = response["periodos"][i]["atividades-de-ensino"].length;
-                //console.log("QTD atividades-de-ensino " +cont_atividadesDeEnsino);
+                cont_atividadesDeEnsino['"periodo-' +i +'"'] = response["periodos"][i]["atividades-de-ensino"].length;
+                console.log("QTD atividades-de-ensino-periodo-" +i +": " +cont_atividadesDeEnsino['"periodo-' +i +'"']);
 
-                retorno += '<h4>ATIVIDADES DE ENSINO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeEnsino(\'atividades-de-ensino-' +i +'\', \'atividadesDeEnsino-linha' +(cont_atividadesDeEnsino++) +'-periodo' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
+                retorno += '<h4>ATIVIDADES DE ENSINO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeEnsino_generic(\'atividades-de-ensino-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-ensino-' +i +'">';
                 retorno += '<thead><tr><th>curso</th><th>disciplina</th><th>cha</th><th>ano</th><th>sem</th><th>turma</th><th>sub</th><th>numero-alunos</th><th>numero-sub</th><th>cht</th><th>chp</th><th>chac</th><th>conjugada</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -249,13 +353,16 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'atividadesDeEnsino-linha'+j +'-periodo' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
 
-                    //cont_atividadesDeEnsino++;
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES DE ENSINO
 
                 // INICIO ATIVIDADES DE ORIENTAÇÃO
-                retorno += '<h4>ATIVIDADES DE ORIENTAÇÃO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeOrientacao(\'atividades-de-orientacao-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
+                cont_atividadesDeOrientacao['"periodo-' +i +'"'] = response["periodos"][i]["atividades-de-orientacao"].length;
+                console.log("QTD atividades-de-orientacao-periodo-" +i +": " +cont_atividadesDeOrientacao['"periodo-' +i +'"']);
+
+
+                retorno += '<h4>ATIVIDADES DE ORIENTAÇÃO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeOrientacao_generic(\'atividades-de-orientacao-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-orientacao-' +i +'">';
                 retorno += '<thead><tr><th>titulo-do-trabalho</th><th>tabela</th><th>estudante</th><th>matricula</th><th>funcao-do-docente</th><th>nivel</th><th>curso</th><th>ies</th><th>cha</th><th>inicio</th><th>fim</th><th>tipo-orientacao</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -298,13 +405,15 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'atividadesDeOrientacao-linha'+j +'-periodo' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
 
-                    cont_atividadesDeOrientacao++;
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES DE ORIENTAÇÃO
 
                 // INICIO ATIVIDADES EM PROJETOS
-                retorno += '<h4>ATIVIDADES EM PROJETOS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeEmProjeto(\'atividades-em-projetos-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
+                cont_atividadesEmProjetos['"periodo-' +i +'"'] = response["periodos"][i]["atividades-em-projetos"].length;
+                console.log("QTD atividades-em-projetos-periodo-" +i +": " +cont_atividadesEmProjetos['"periodo-' +i +'"']);
+
+                retorno += '<h4>ATIVIDADES EM PROJETOS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeEmProjeto_generic(\'atividades-em-projetos-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-em-projetos-' +i +'">';
                 retorno += '<thead><tr><th>titulo-do-projeto</th><th>tabela</th><th>unidade-responsavel</th><th>tipo</th><th>situacao</th><th>funcao</th><th>financiado</th><th>cha</th><th>inicio</th><th>fim</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -341,13 +450,15 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'atividadesEmProjetos-linha'+j +'-periodo' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
 
-                    cont_atividadesEmProjetos++;
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES EM PROJETOS
 
                 // INICIO ATIVIDADES DE EXTENSÃO
-                retorno += '<h4>ATIVIDADES DE EXTENSÃO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeExtensao(\'atividades-de-extensao-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
+                cont_atividadesDeExtensao['"periodo-' +i +'"'] = response["periodos"][i]["atividades-de-extensao"].length;
+                console.log("QTD atividades-de-extensao-periodo-" +i +": " +cont_atividadesDeExtensao['"periodo-' +i +'"']);
+
+                retorno += '<h4>ATIVIDADES DE EXTENSÃO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeExtensao_generic(\'atividades-de-extensao-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-extensao-' +i +'">';
                 retorno += '<thead><tr><th>tabela</th><th>cha</th><th>inicio</th><th>fim</th><th>descricao</th><th>clientela</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -372,13 +483,15 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'atividadesDeExtensao-linha'+j +'-periodo' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
 
-                    cont_atividadesDeExtensao++;
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES DE EXTENSÃO
 
                 // INICIO ATIVIDADES DE QUALIFICAÇÃO
-                retorno += '<h4>ATIVIDADES DE QUALIFICAÇÃO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeQualificacao(\'atividades-de-qualificacao-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
+                cont_atividadesDeQualificacao['"periodo-' +i +'"'] = response["periodos"][i]["atividades-de-qualificacao"].length;
+                console.log("QTD atividades-de-qualificacao-periodo-" +i +": " +cont_atividadesDeQualificacao['"periodo-' +i +'"']);
+
+                retorno += '<h4>ATIVIDADES DE QUALIFICAÇÃO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeDeQualificacao_generic(\'atividades-de-qualificacao-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-de-qualificacao-' +i +'">';
                 retorno += '<thead><tr><th>tabela</th><th>descricao</th><th>cha</th><th>inicio</th><th>fim</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -400,13 +513,15 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'atividadesDeQualificacao-linha'+j +'-periodo' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
 
-                    cont_atividadesDeQualificacao++;
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES DE QUALIFICAÇÃO
 
                 // INICIO ATIVIDADES ACADÊMICAS ESPECIAIS
-                retorno += '<h4>ATIVIDADES ACADÊMICAS ESPECIAIS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeAcademicaEspecial(\'atividades-academicas-especiais-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
+                cont_atividadesAcademicasEspeciais['"periodo-' +i +'"'] = response["periodos"][i]["atividades-academicas-especiais"].length;
+                console.log("QTD atividades-academicas-especiais-periodo-" +i +": " +cont_atividadesAcademicasEspeciais['"periodo-' +i +'"']);
+
+                retorno += '<h4>ATIVIDADES ACADÊMICAS ESPECIAIS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeAcademicaEspecial_generic(\'atividades-academicas-especiais-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-academicas-especiais-' +i +'">';
                 retorno += '<thead><tr><th>tabela</th><th>cha</th><th>inicio</th><th>fim</th><th>descricao</th><th>clientela</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -431,13 +546,15 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'atividadesAcademicasEspeciais-linha'+j +'-periodo' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
 
-                    cont_atividadesAcademicasEspeciais++;
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES ACADÊMICAS ESPECIAIS
 
                 // INICIO ATIVIDADES ADMINISTRATIVAS
-                retorno += '<h4>ATIVIDADES ADMINISTRATIVAS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeAdministrativa(\'atividades-administrativas-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
+                cont_atividadesAdministrativas['"periodo-' +i +'"'] = response["periodos"][i]["atividades-administrativas"].length;
+                console.log("QTD atividades-administrativas-periodo-" +i +": " +cont_atividadesAdministrativas['"periodo-' +i +'"']);
+
+                retorno += '<h4>ATIVIDADES ADMINISTRATIVAS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAtividadeAdministrativa_generic(\'atividades-administrativas-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="atividades-administrativas-' +i +'">';
                 retorno += '<thead><tr><th>tabela</th><th>cha</th><th>inicio</th><th>fim</th><th>descricao</th><th>emissor</th><th>orgao-servido</th><th>portaria</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -468,13 +585,15 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'atividadesAdministrativas-linha'+j +'-periodo' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
 
-                    cont_atividadesAdministrativas++;
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM ATIVIDADES ADMINISTRATIVAS
 
                 // INICIO PRODUTOS
-                retorno += '<h4>PRODUTOS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaProduto(\'produtos-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
+                cont_produtos['"periodo-' +i +'"'] = response["periodos"][i]["produtos"].length;
+                console.log("QTD produtos-periodo-" +i +": " +cont_produtos['"periodo-' +i +'"']);
+
+                retorno += '<h4>PRODUTOS <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaProduto_generic(\'produtos-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="produtos-' +i +'">';
                 retorno += '<thead><tr><th>descricao</th><th>titulo</th><th>autoria</th><th>associacao-do-produto</th><th>projeto-associado</th><th>veiculacao</th><th>local</th><th>data</th><th>ano-da-publicacao</th><th>pagina-inicial</th><th>pagina-final</th><th>numero-de-paginas</th><th>numero-da-patente</th><th></th></tr></thead>';
                 retorno += '<tbody>';
@@ -520,7 +639,6 @@ function carregaJsonEntrada(){
                     retorno += '</div></td>';
                     retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'produtos-linha'+j +'-periodo' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
 
-                    cont_produtos++;
                 }
                 retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM PRODUTOS
@@ -533,6 +651,7 @@ function carregaJsonEntrada(){
 
 
 
+                console.log("");
             } // fim do for periodos
 
             // ESTÁ PASSANDO SOMENTE O TEXTO NÃO FORMATADO,AINDA FALTA FORMATAR OU ENTÃO TENTAR PASSAR AO INVÉS DO TEXTO, UM OBJETO
@@ -555,7 +674,7 @@ function carregaJsonEntrada(){
                     cont++;
                 }
                 linhaFormatada += "}";
-                console.log(linhaFormatada);
+                //console.log(linhaFormatada);
                 mapAux[$(this).attr("id")] = linhaFormatada;
             });
 
