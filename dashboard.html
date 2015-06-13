@@ -97,7 +97,7 @@
 
                     <!-- INICIO DADOS GERAIS DO DOCENTE E PAINEL DE CONTROLE -->
                     <div class="row">
-                        <div class="col-lg-10">
+                        <div class="col-lg-8">
                             <p id="siape"><strong>SIAPE:</strong> </p>
                             <p id="ingressoUfg"><strong>Data de ingresso na UFG:</strong> </p>
                             <p id="ingressoServicoPublico"><strong>Data de ingresso na carreira pública:</strong> </p>
@@ -106,6 +106,11 @@
                         <div class="col-lg-2" style="text-align: center;">
                             <br/>
                             <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#modalMudancas" id="btnExibirLogDeMudancas">Log de mudanças</button>
+                            <br/>
+                        </div>
+                        <div class="col-lg-2" style="text-align: center;">
+                            <br/>
+                            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#modalHoras" id="btnComputarHoras">Computar Horas</button>
                             <br/>
                         </div>
                     </div>
@@ -123,6 +128,32 @@
 
                     <div id="visual"></div>
 
+                    <!-- INICIO MODAL HORAS -->
+                    <div class="modal fade" id="modalHoras" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" >
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Horas Computadas</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-lg-12" id="retornoHorasComputadas">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                    <button type="button" class="btn btn-primary" id="">Salvar</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- FIM MODAL HORAS -->
+
                     <!-- INICIO MODAL LOG DE MUDANÇAS -->
                     <div class="modal fade" id="modalMudancas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog" style="width: 90%;">
@@ -134,9 +165,32 @@
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div id="jsonDiffVisual" style="width: 80%">
-                                                
+                                            <div id="remocao">
+                                                <h5>OPERAÇÃO: <strong>REMOÇÃO</strong></h5>
+                                                <br>
+                                                <ul id="listaDeLinhasRemovidas" style="list-style-type: none;">
+
+                                                </ul>
                                             </div>
+                                            <hr />
+                                            <div id="insercao">
+                                                <h5>OPERAÇÃO: <strong>INSERÇÃO</strong></h5>
+                                                <br>
+                                                <ul id="listaDeLinhasInseridas" style="list-style-type: none;">
+
+                                                </ul>
+                                            </div>
+                                            <hr />
+                                            <div id="edicao">
+                                                <h5>OPERAÇÃO: <strong>EDIÇÃO</strong></h5>
+                                                <br>
+                                                <ul id="listaDeLinhasEditadas" style="list-style-type: none;">
+
+                                                </ul>
+                                            </div>
+                                            <!--<div id="jsonDiffVisual" style="width: 80%">
+
+                                            </div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +207,7 @@
 
                     <div  class="row">
                         <div class="col-lg-12">
-                            <div id="diffoutput">
+                            <div id="foo">
                                 
                             </div>
                         </div>
@@ -169,12 +223,258 @@
         </div>
 
         <script type="text/javascript">
-            jQuery(document).ready(function($){
+        $(document).ready(function(){
             // POPULA A PÁGINA
             imprimeInformacoesDocente();
             carregaJsonEntrada();
 
+
+
+            $("#btnComputarHoras").click(function (){
+
+                // limpa a div cada vez que clica no botão, depois ela será montada novamente
+                $("#retornoHorasComputadas").html("");
+
+                var chaTotal = 0;
+
+                for(var i=0; i<cont_periodos; i++){
+
+                    var retorno = "";
+
+                    // ABRINDO PAINEL
+                    retorno += '<div class="row"><div class="col-lg-2"></div><div class="col-lg-8"><div class="panel panel-primary">';
+                    retorno += '<div class="panel-heading"><h3 class="panel-title">';
+                    retorno += GLOBAL_requestResponse["periodos"][i]["periodo"].inicio;
+                    retorno += ' - ';
+                    retorno += GLOBAL_requestResponse["periodos"][i]["periodo"].fim;
+                    retorno += '</h3></div>'; // fim do panel-heading
+                    retorno += '<div class="panel-body">';
+
+                    var idDaTabela = "";
+                    var idDaLinha = "";
+
+                    var cha = 0;
+                    var cht = 0;
+                    var chp = 0;
+
+                    // ------- INICIO TABELA ATIVIDADES DE ENSINO
+                    retorno += "<h7>ATIVIDADES DE ENSINO</h7><br><ul>";
+                    idDaTabela = "atividades-de-ensino-" +i;
+
+                    // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
+                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                        idDaLinha = "atividadesDeEnsino-linha" +j + "-periodo" +i;
+                        if(document.getElementById(idDaLinha) == null){
+                            //alert("id não existe");
+                            // nada a ser feito
+                            continue;
+                        } else {
+                            //alert("entrei no else");
+                            cha += parseInt(document.getElementById(idDaLinha).children[2].textContent);
+                            cht += parseInt(document.getElementById(idDaLinha).children[9].textContent);
+                            chp += parseInt(document.getElementById(idDaLinha).children[10].textContent);
+                        }
+                    }
+
+                    chaTotal += cha;
+
+                    retorno += "<li><strong>CHA: </strong>" +cha +"</li>";
+                    retorno += "<li><strong>CHT: </strong>" +cht +"</li>";
+                    retorno += "<li><strong>CHP: </strong>" +chp +"</li>";
+                    retorno += "</ul><br>";
+
+                    cha = 0;
+                    // ------- FIM TABELA ATIVIDADES DE ENSINO
+
+                    // ------- INICIO TABELA ATIVIDADES DE ORIENTAÇÃO
+                    retorno += "<h7>ATIVIDADES DE ORIENTAÇÃO</h7><br><ul>";
+                    idDaTabela = "atividades-de-orientacao-" +i;
+
+                    // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
+                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                        idDaLinha = "atividadesDeOrientacao-linha" +j + "-periodo" +i;
+                        if(document.getElementById(idDaLinha) == null){
+                            //alert("id não existe");
+                            // nada a ser feito
+                            continue;
+                        } else {
+                            cha += parseInt(document.getElementById(idDaLinha).children[8].textContent);
+                        }
+                    }
+
+                    chaTotal += cha;
+
+                    retorno += "<li><strong>CHA: </strong>" +cha +"</li>";
+                    retorno += "</ul><br>";
+
+                    cha = 0;
+                    // ------- FIM TABELA ATIVIDADES DE ORIENTAÇÃO
+
+                    // ------- INICIO TABELA ATIVIDADES EM PROJETOS
+                    retorno += "<h7>ATIVIDADES EM PROJETOS</h7><br><ul>";
+                    idDaTabela = "atividades-em-projetos-" +i;
+
+                    // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
+                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                        idDaLinha = "atividadesEmProjetos-linha" +j + "-periodo" +i;
+                        if(document.getElementById(idDaLinha) == null){
+                            //alert("id não existe");
+                            // nada a ser feito
+                            continue;
+                        } else{
+                            cha += parseInt(document.getElementById(idDaLinha).children[7].textContent);
+                        }
+                    }
+
+                    chaTotal += cha;
+
+                    retorno += "<li><strong>CHA: </strong>" +cha +"</li>";
+                    retorno += "</ul><br>";
+
+                    cha = 0;
+                    // ------- FIM TABELA ATIVIDADES EM PROJETOS
+
+                    // ------- INICIO TABELA ATIVIDADES DE EXTENSÃO
+                    retorno += "<h7>ATIVIDADES DE EXTENSÃO</h7><br><ul>";
+                    idDaTabela = "atividades-de-extensao-" +i;
+
+                    // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
+                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                        idDaLinha = "atividadesDeExtensao-linha" +j + "-periodo" +i;
+                        if(document.getElementById(idDaLinha) == null){
+                            //alert("id não existe");
+                            // nada a ser feito
+                            continue;
+                        } else{
+                            cha += parseInt(document.getElementById(idDaLinha).children[1].textContent);
+                        }
+                    }
+
+                    chaTotal += cha;
+
+                    retorno += "<li><strong>CHA: </strong>" +cha +"</li>";
+                    retorno += "</ul><br>";
+
+                    cha = 0;
+                    // ------- FIM TABELA ATIVIDADES DE EXTENSÃO
+
+                    // ------- INICIO TABELA ATIVIDADES DE QUALIFICAÇÃO
+                    retorno += "<h7>ATIVIDADES DE QUALIFICAÇÃO</h7><br><ul>";
+                    idDaTabela = "atividades-de-qualificacao-" +i;
+
+                    // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
+                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                        idDaLinha = "atividadesDeQualificacao-linha" +j + "-periodo" +i;
+                        if(document.getElementById(idDaLinha) == null){
+                            //alert("id não existe");
+                            // nada a ser feito
+                            continue;
+                        } else{
+                            cha += parseInt(document.getElementById(idDaLinha).children[2].textContent);
+                        }
+                    }
+
+                    chaTotal += cha;
+
+                    retorno += "<li><strong>CHA: </strong>" +cha +"</li>";
+                    retorno += "</ul><br>";
+
+                    cha = 0;
+                    // ------- FIM TABELA ATIVIDADES DE QUALIFICAÇÃO
+
+                    // ------- INICIO TABELA ATIVIDADES ACADÊMICAS ESPECIAIS
+                    retorno += "<h7>ATIVIDADES ACADÊMICAS ESPECIAIS</h7><br><ul>";
+                    idDaTabela = "atividades-academicas-especiais-" +i;
+
+                    // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
+                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                        idDaLinha = "atividadesAcademicasEspeciais-linha" +j + "-periodo" +i;
+                        if(document.getElementById(idDaLinha) == null){
+                            //alert("id não existe");
+                            // nada a ser feito
+                            continue;
+                        } else{
+                            cha += parseInt(document.getElementById(idDaLinha).children[1].textContent);
+                        }
+                    }
+
+                    chaTotal += cha;
+
+                    retorno += "<li><strong>CHA: </strong>" +cha +"</li>";
+                    retorno += "</ul><br>";
+
+                    cha = 0;
+                    // ------- FIM TABELA ATIVIDADES ACADÊMICAS ESPECIAIS
+
+                    // ------- INICIO TABELA ATIVIDADES ADMINISTRATIVAS
+                    retorno += "<h7>ATIVIDADES ADMINISTRATIVAS</h7><br><ul>";
+                    idDaTabela = "atividades-administrativas-" +i;
+
+                    // tira uma unidade pois a primeira tag <tr> é do cabeçalho e não faz parte
+                    for(var j=0; j<document.getElementById(idDaTabela).getElementsByTagName("tr").length-1; j++){
+                        idDaLinha = "atividadesAdministrativas-linha" +j + "-periodo" +i;
+                        if(document.getElementById(idDaLinha) == null){
+                            //alert("id não existe");
+                            // nada a ser feito
+                            continue;
+                        } else{
+                            cha += parseInt(document.getElementById(idDaLinha).children[1].textContent);
+                        }
+                    }
+
+                    chaTotal += cha;
+
+                    retorno += "<li><strong>CHA: </strong>" +cha +"</li>";
+                    retorno += "</ul><br>";
+
+                    cha = 0;
+                    // ------- FIM TABELA ATIVIDADES ADMINISTRATIVAS
+
+                    // FECHANDO PAINEL
+                    retorno += '</div><div class="panel-footer"><h7><strong>[TOTAL] CHA: ' +chaTotal +' -- CHT: ' +cht +' -- CHP:' +chp +'</strong></h7></div>'; // fim panel-body
+                    retorno += '</div></div><div class="col-lg-2"></div></div><br/>'; // fim do panel-default. fim da col. fim da row
+                    $("#retornoHorasComputadas").append(retorno);
+
+                    chaTotal = 0;
+                    cht = 0;
+                    chp = 0;
+                }
+
+
+
+            });
+
             $("#btnExibirLogDeMudancas").click(function(){
+
+
+
+                //console.log("TAMANHO DO ARRAY LINHAS ORIGINAIS: " +arr_TR_linhasOriginais.length);
+                //for(var r=0; r<arr_TR_linhasOriginais.length; r++){
+                    //console.log(arr_TR_linhasOriginais[r]);
+                //}
+
+
+                // LINHAS ORIGINAIS
+                //console.log(arr_TR_linhasOriginais);
+                //for(var t=0; t<arr_TR_linhasOriginais.length; t++){
+                    //console.log(arr_TR_linhasOriginais[t]);
+                //}
+
+                //console.log("TAMANHO DO ARRAY LINHAS EDITADAS: " +arr_TR_linhasAlteradas.length);
+
+
+                // LINHAS REMOVIDAS
+                //console.log("TAMANHO DO ARRAY LINHAS REMOVIDAS: " +arr_TR_linhasRemovidas.length);
+                //console.log(arr_TR_linhasOriginais);
+                //for(var t=0; t<arr_TR_linhasRemovidas.length; t++){
+                    //console.log(arr_TR_linhasRemovidas[t]);
+                //}
+
+
+
+
+
+                /*
 
                 // Variáveis
                 var retornoJson = {};
@@ -250,6 +550,7 @@
                     //console.log(JSON.stringify(objetoPeriodoGERAL));
 
 
+
                     arrayPeriodos.push(objetoPeriodoGERAL);
                 };
 
@@ -261,7 +562,7 @@
 
                 GLOBAL_right = JSON.stringify(GLOBAL_right);
 
-                console.log(GLOBAL_right);
+                //console.log(GLOBAL_right);
 
                 //var delta = jsondiffpatch.diff(GLOBAL_left, GLOBAL_right);
                 //$("#diffoutput").html(jsondiffpatch.formatters.html.format(delta, GLOBAL_left));
@@ -281,62 +582,65 @@
                 $("#jsonDiffVisual").html(output[0]);
                 //console.log(output);
 
-
-                /*var iframe = document.createElement('iframe');
-                iframe.frameBorder = 1;
-                //iframe.width = "500px";
-                //iframe.height = "500px";
-                iframe.id = "iframe";
-                //iframe.src = "teste.html";
-
-                iframe.onload = function()
-                {
-                    var doc = iframe.contentDocument || iframe.contentWindow.document;
-                    //var div = doc.createElement('div');
-                    doc.html = output[0];
-                    //div.textContent = "Paragraph in iframe";
-                    //doc.body.appendChild(div);
-                };
-
-                document.getElementById("iFrameReceiver").appendChild(iframe); //this is a div  that I have in body.
-
-                
-                
-
-                
-                //$("#diffoutput").append( output[0] );
-                //$("#iFrame").html("</div>" + output[0]);
-                //return heading + output[1] + "</div>" + output[0] + "</body></html>";
+            */
 
 
-                /*alert(GLOBAL_left);
-                alert(GLOBAL_right);
-                var delta = JSON.stringify(jsondiffpatch.diff(GLOBAL_left, GLOBAL_right));
-
-    
-
-                $.ajax({
-                    type: "POST",
-                    url: "http://prettydiff.com",
-                    data: {
-                        l: "html",
-                        m: "diff",
-                        source: GLOBAL_left,
-                        diff: GLOBAL_right
+                // RETURN -- REMOÇÃO -- 100% OK
+                for(var r=0; r<arr_TR_linhasRemovidas.length; r++){
+                    var report = "";
+                    var line = "{";
+                    var fragments = (arr_TR_linhasRemovidas[r].id).split("-");
+                    var trChildNodes = arr_TR_linhasRemovidas[r].childNodes;
+                    var cont = 0;
+                    for(var t=0; t<trChildNodes.length-1; t++){
+                        line += '"' +arr_TR_linhasRemovidas[r].childNodes.item(t).textContent +'"';
+                        if(cont < trChildNodes.length-2){
+                            line += ", ";
+                        }
+                        cont++;
                     }
-                });*/
-                //window.open("http://prettydiff.com/?l=html&m=diff&diff=" +GLOBAL_right +"&source=" +GLOBAL_left );
+                    line += "}";
+                    report += "<li><strong>TABELA: </strong>" +fragments[0] +"</li>";
+                    report += "<li><strong>PERÍODO: </strong>" +GLOBAL_requestResponse["periodos"][parseInt(fragments[2].charAt(fragments[2].length-1))]["periodo"].inicio + " - " +GLOBAL_requestResponse["periodos"][parseInt(fragments[2].charAt(fragments[2].length-1))]["periodo"].fim +"</li>";
+                    report += "<li><strong>ID: </strong>" +arr_TR_linhasRemovidas[r].id +"</li>";
+                    report += "<strong>REGISTRO REMOVIDO: </strong>" +line +"</li><br><br>";
+                    $("#listaDeLinhasRemovidas").append(report);
+                }
 
-                // http://prettydiff.com/?l=html&m=diff&
+                // RETURN -- ADIÇÃO
 
-                //console.log(JSON.stringify(jsondiff.diff(GLOBAL_right, GLOBAL_left)));
-                
 
-                //$("#modalMudancas").html(jsondiffpatch.formatters.html.format(delta, GLOBAL_left));
-                //document.getElementById('modalMudancas').innerHTML = jsondiffpatch.formatters.html.format(delta, GLOBAL_left);
+                // RETURN -- EDIÇÃO
+                $("#listaDeLinhasEditadas").html("");
+                $('.editada').each(function (){
+                    var report = "";
+                    var line = "{";
+                    var fragments = (this.id).split("-");
+                    var trChildNodes = this.childNodes;
+                    var cont = 0;
+                    for(var t=0; t<trChildNodes.length-1; t++){
+                        line += '"' +this.childNodes.item(t).textContent +'"';
+                        if(cont < trChildNodes.length-2){
+                            line += ", ";
+                        }
+                        cont++;
+                    }
+                    line += "}";
+                    report += "<li><strong>TABELA: </strong>" +fragments[0] +"</li>";
+                    report += "<li><strong>PERÍODO: </strong>" +GLOBAL_requestResponse["periodos"][parseInt(fragments[2].charAt(fragments[2].length-1))]["periodo"].inicio + " - " +GLOBAL_requestResponse["periodos"][parseInt(fragments[2].charAt(fragments[2].length-1))]["periodo"].fim +"</li>";
+                    report += "<li><strong>ID: </strong>" +this.id +"</li>";
+                    report += "<strong>REGISTRO ORIGINAL: </strong>" +mapAux[this.id] +"</li><br>";
+                    report += "<strong>REGISTRO ALTERADO: </strong>" +line +"</li><br><br>";
+                    $("#listaDeLinhasEditadas").append(report);
+                });
 
-            });  
+                // limpando os arrays
+                arr_TR_linhasAlteradas = [];
+                arr_TR_linhasRemovidas = [];
+                arr_TR_linhasOriginais = [];
+                arr_ID_linhasAdicionadas = [];
 
+            });
 
 
             // FUNÇÕES QUE AUXILIAM NA FORMATAÇÃO DO JSON DE RETORNO
@@ -556,6 +860,10 @@
 
                 return arrAux;
             }
+
+
+
+
 
         });
 </script>
