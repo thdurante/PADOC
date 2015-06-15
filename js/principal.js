@@ -227,10 +227,9 @@ function imprimeInformacoesDocente(){
 function carregaJsonEntrada(){
     $.ajax({
         type: "POST",
-        async: false,
         url: "json/entradaJson.json",
         data: {
-
+            parametrosDeEntrada: requestJson
         },
         dataType: "json",
         success: function(response){
@@ -239,10 +238,13 @@ function carregaJsonEntrada(){
             GLOBAL_left = GLOBAL_requestResponse;
             GLOBAL_left = JSON.stringify(GLOBAL_left);
 
+            $("#siape").html("");
+            $("#ingressoUfg").html("");
+            $("#ingressoServicoPublico").html("");
 
-            $("#siape").append(response["siape"]);
-            $("#ingressoUfg").append(response["data-ingresso-na-ufg"]);
-            $("#ingressoServicoPublico").append(response["data-ingresso-servico-publico"]);
+            $("#siape").append("<strong>SIAPE: </strong>" +response["siape"]);
+            $("#ingressoUfg").append("<strong>Data de ingresso na UFG: </strong>" +response["data-ingresso-na-ufg"]);
+            $("#ingressoServicoPublico").append("<strong>Data de ingresso na carreira pública: </strong>" +response["data-ingresso-servico-publico"]);
 
             cont_periodos = response["periodos"].length;
 
@@ -697,6 +699,7 @@ function carregaJsonEntrada(){
 
 
             
-        }
+        },
+        async: true
     }); // fim da requisição ajax
 } // fim da função carregaJsonEntrada()

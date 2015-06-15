@@ -5,7 +5,7 @@
 	"periodos": [
 		{
 			"periodo": {
-				"inicio": "01/01/1992",
+				"inicio": "01/01/2009",
 				"fim": "31/12/2009"
 			},
 			"dados-do-docente": {
@@ -171,7 +171,7 @@
 		{
 			"periodo": {
 				"inicio": "01/01/2010",
-				"fim": "31/12/2014"
+				"fim": "31/12/2010"
 			},
 			"dados-do-docente": {
 				"nome": "FÁBIO NOGUEIRA DE LUCENA",

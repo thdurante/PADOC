@@ -39,21 +39,7 @@
     
     <script type="text/javascript">
     $(function(){
-        $("#gerarRelatorio").click(function(){
-            var nomeProfessor = $("#nomeProfessor").val();
-            var dataInicio = $("#dataInic").val();
-            var dataFim = $("#dataFim").val();
 
-            if(nomeProfessor != "" && dataInicio != "" && dataFim != ""){
-                sessionStorage.setItem("professor", nomeProfessor);
-                sessionStorage.setItem("dataInicio", dataInicio);
-                sessionStorage.setItem("dataFim", dataFim);
-                window.open("dashboard.html", "_self");
-            } else {
-                alert("Preencha todos os campos para continuar!");
-            }
-            
-        });
     });
     </script>
     
@@ -114,40 +100,76 @@
                         <h5>A seguir, escolha o professor e os períodos desejados...</h5>
                         <br/>
                         <div class="row">
-                            <div class="col-lg-12">
-                                <label>Matrícula SIAPE</label>
-                                <div class="form-group input-group">    
-                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input class="form-control" placeholder="SIAPE" id="matriculaSiape">
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label>Matrícula SIAPE</label>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input class="form-control" placeholder="SIAPE" id="matriculaSiape">
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label>Usuário</label>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                                            <input class="form-control" placeholder="exemplo@exemplo.com.br" id="usuario">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label>Senha</label>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                            <input class="form-control" placeholder="Senha" id="senha" type="password">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label>Início</label>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input class="form-control"  id="inicio">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label>Fim</label>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input class="form-control" id="fim">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <button type="button" class="btn btn-primary" id="novoPeriodoDeInteresse">Novo Período de Interesse</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <br>
+                                        <div class="well">
+                                            <h6>PERÍODOS DE INTERESSE: </h6>
+                                            <ol id="periodosDeInteresse">
+
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <br>
+                                <button type="button" class="btn btn-primary" id="gerarRelatorio">Exibir Relatório de Atividades</button>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <label>Períodos de interesse</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <input class="form-control" placeholder="Ano1" id="ano1">
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <input class="form-control" placeholder="Ano2" id="ano2">
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <input class="form-control" placeholder="Ano3" id="ano3">
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-primary" id="gerarRelatorio">Exibir Relatório de Atividades</button>
                     </div>
                 </div>
                 <!--FIM INÍCIO-->
@@ -159,9 +181,50 @@
     <!-- /#wrapper -->
     <script type="text/javascript">
         jQuery(document).ready(function($){
-            $("#ano1").mask("0000", {placeholder: "YYYY"});
-            $("#ano2").mask("0000", {placeholder: "YYYY"});
-            $("#ano3").mask("0000", {placeholder: "YYYY"});
+            $("#inicio").mask("00/00/0000", {placeholder: "dd/mm/yyyy"});
+            $("#fim").mask("00/00/0000", {placeholder: "dd/mm/yyyy"});
+
+            $("#gerarRelatorio").click(function(){
+                //var siape = $("#matriculaSiape").val();
+                //var usuario = $("#usuario").val();
+                //var senha = $("#senha").val();
+                //var listaPeriodosDeInteresse = document.getElementById("periodosDeInteresse").childNodes;
+
+                //console.log(listaPeriodosDeInteresse.length);
+
+                //if(siape != "" && usuario != "" && senha != "" && listaPeriodosDeInteresse.length > 1){
+                    //sessionStorage.setItem("siape", siape);
+                    //sessionStorage.setItem("usuario", usuario);
+                    //sessionStorage.setItem("senha", senha);
+
+
+                    var periodos = "";
+                    $("li").each(function (){
+                        console.log("Text content " +this.textContent);
+                        periodos += this.val() + "_";
+                    });
+
+                    //sessionStorage.setItem("periodos", periodos);
+
+
+                    //window.open("dashboard.html", "_self");
+
+                //} else {
+                    //alert("Preencha todos os campos para continuar!");
+                //}
+
+            });
+
+            $("#novoPeriodoDeInteresse").click(function (){
+
+                if($("#inicio").val() != "" && $("#fim").val() != ""){
+                    var listItem = $("#inicio").val() + " - " + $("#fim").val();
+                    $("#periodosDeInteresse").append("<li>" +listItem + "</li>");
+                    $("#inicio").val("");
+                    $("#fim").val("");
+                }
+            });
+
         });
     </script>
 
