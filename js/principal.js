@@ -1,23 +1,15 @@
 // VARIÁVEIS GLOBAIS
 var GLOBAL_requestResponse;
-var GLOBAL_left;
-var GLOBAL_right;
 
 // INICIALIZAÇÃO BÁSICA PARA TESTES
-var usuario = "fabio@inf.ufg.br";
-var senha = "123tetinha";
 var siape = "6302300";
-var inicioPeriodo1 = "01/01/1992";
-var fimPeriodo1 = "31/12/2009";
-var inicioPeriodo2 = "01/01/2010";
-var fimPeriodo2 = "31/12/2014";
+
 
 // CONTADOR DE PERIODOS
 var cont_periodos = 0;
 
 // CONTADOR DE REGISTROS DE CADA TABELA
-var cont_dadosDoDocente = 0;
-var cont_afastamento = 0;
+var cont_afastamento = {};
 var cont_atividadesDeEnsino = {};
 var cont_atividadesDeOrientacao = {};
 var cont_atividadesEmProjetos = {};
@@ -27,28 +19,33 @@ var cont_atividadesAcademicasEspeciais = {};
 var cont_atividadesAdministrativas = {};
 var cont_produtos = {};
 
-// ------------------------- EDIÇÃO
-var arr_TR_linhasOriginais = []; // recebe as tr
-var arr_TR_linhasAlteradas = []; // recebe as tr
+// EDIÇÃO, ADIÇÃO, REMOÇÃO
+var arr_TR_linhasOriginais = [];
+var arr_TR_linhasAlteradas = [];
 var mapAux = {};
-
-// ------------------------- ADIÇÃO
-var arr_ID_linhasAdicionadas = []; // recebe as id
-
-// ------------------------- REMOÇÃO
-var arr_TR_linhasRemovidas = []; // recebe as tr
-
-
-// DADOS INICIAIS RECUPERADOS DE INDEX
-// console.log("Tamanho do sessionStorage: " +sessionStorage.length);
-// console.log("Nome do professor: " +sessionStorage.getItem("professor"));
-// console.log("Data Inicio: " +sessionStorage.getItem("dataInicio"));
-// console.log("Data Fim: " +sessionStorage.getItem("dataFim"));
+var arr_ID_linhasAdicionadas = [];
+var arr_TR_linhasRemovidas = [];
 
 function removeLinha(linha){
     document.getElementById(linha).className = "removida";
     arr_TR_linhasRemovidas.push(document.getElementById(linha));
     document.getElementById(linha).remove();
+}
+
+function insereLinhaAfastamento_generic(idTabela){
+
+    var periodo = idTabela.charAt(idTabela.length-1);
+    var idTr = "afastamento-linha" +cont_afastamento['"periodo-' +periodo +'"'] +"-periodo" +periodo;
+    $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
+
+    // incrementa o contador de atividades de ensino
+    cont_afastamento['"periodo-' +periodo +'"'] = cont_afastamento['"periodo-' +periodo +'"'] + 1;
+
+    // visual
+    var trChildNodes = document.getElementById(idTr).childNodes;
+    for(var t=0; t<trChildNodes.length-1; t++) {
+        document.getElementById(idTr).childNodes.item(t).childNodes.item(0).setAttribute("style", "background-color: #FDFFDA;");
+    }
 }
 
 function insereLinhaAtividadeDeEnsino_generic(idTabela){
@@ -189,41 +186,6 @@ function insereLinhaProduto_generic(idTabela){
     }
 }
 
-function imprimeInformacoesDocente(){
-    var retorno = "";
-    retorno += '<li><a href="#"><i class="fa fa-fw fa-user"></i> ';
-    retorno += usuario;
-    retorno += ' - SIAPE: ';
-    retorno += siape;
-    /*retorno += '  [';
-    retorno += inicioPeriodo1;
-    retorno += ' - ';
-    retorno += fimPeriodo1;
-    retorno += ']';
-    retorno += '  [';
-    retorno += inicioPeriodo2;
-    retorno += ' - ';
-    retorno += fimPeriodo2;
-    retorno += ']';*/
-    retorno += '</a></li>';
-
-    $("#navbarTopRight").append(retorno);
-
-
-    /*if(sessionStorage.length === 3){
-        console.log("entrou no if");
-        var append = '<li><a href="#"><i class="fa fa-fw fa-user"></i> ';
-        append += sessionStorage.getItem("professor");
-        append += '   [';
-        append += sessionStorage.getItem("dataInicio");
-        append += ' - ';
-        append += sessionStorage.getItem("dataFim");
-        append += ']</a></li>';
-
-        $("#navbarTopRight").append(append);
-    }*/
-}
-
 function carregaJsonEntrada(){
     $.ajax({
         type: "POST",
@@ -235,8 +197,6 @@ function carregaJsonEntrada(){
         success: function(response){
             //PEGANDO VARIÁVEIS GLOBAIS NECESSÁRIAS
             GLOBAL_requestResponse = response;
-            GLOBAL_left = GLOBAL_requestResponse;
-            GLOBAL_left = JSON.stringify(GLOBAL_left);
 
             $("#siape").html("");
             $("#ingressoUfg").html("");
@@ -297,12 +257,22 @@ function carregaJsonEntrada(){
                 // FIM DADOS DO DOCENTE
 
                 // INICIO AFASTAMENTO
-                retorno += '<h4>AFASTAMENTO <button type="button" style="border-radius: 50px;" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
+                cont_afastamento['"periodo-' +i +'"'] = response["periodos"][i]["afastamento"].length;
+
+                retorno += '<h4>AFASTAMENTO <button type="button" style="border-radius: 50px;" onclick="' + 'insereLinhaAfastamento_generic(\'afastamento-' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i></button></h4>';
                 retorno += '<table class="table table-bordered table-editable" id="afastamento-' +i +'" class="normal">';
-                retorno += '<thead><tr><th>AFASTAMENTO</th></tr></thead>';
-                retorno += '<tbody><tr id="afastamento-linha0-periodo' +i +'">';
-                retorno += '<td>AFASTAMENTO</td>'
-                retorno += '</tr></tbody></table><br/>'; //fim tbody. fim table
+                retorno += '<thead><tr><th>inicio</th><th>fim</th><th></th></tr></thead>';
+                retorno += '<tbody>';
+                for(j=0; j<response["periodos"][i]["afastamento"].length; j++){
+                    retorno += '<tr id="afastamento-linha'+j +'-periodo' +i +'" class="normal"><td><div contenteditable="true">';
+                    retorno += response["periodos"][i]["afastamento"][j].inicio;
+                    retorno += '</div></td>';
+                    retorno += '<td><div contenteditable="true">';
+                    retorno += response["periodos"][i]["afastamento"][j].fim;
+                    retorno += '</div></td>';
+                    retorno += '<td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'afastamento-linha'+j +'-periodo' +i +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>';
+                }
+                retorno += '</tbody></table><br/>'; //fim tbody. fim table
                 // FIM AFASTAMENTO
 
                 // INICIO ATIVIDADES DE ENSINO
@@ -652,17 +622,7 @@ function carregaJsonEntrada(){
                 $("#retornoJson").append(retorno);
 
 
-
-                console.log("");
             } // fim do for periodos
-
-            // ESTÁ PASSANDO SOMENTE O TEXTO NÃO FORMATADO,AINDA FALTA FORMATAR OU ENTÃO TENTAR PASSAR AO INVÉS DO TEXTO, UM OBJETO
-            /*$('.normal').each(function (){
-                //console.log($(this)[0]);
-                //console.log("ID" + $(this).attr("id"));
-                //console.log("VALOR" + $(this).text());
-                mapAux[$(this).attr("id")] = $(this).text();
-            });*/
 
             $('.normal').each(function (){
                 var linhaFormatada = "{";
@@ -680,7 +640,6 @@ function carregaJsonEntrada(){
                 mapAux[$(this).attr("id")] = linhaFormatada;
             });
 
-
             // MUDA A COR DA DIV CASO HAJA ALGUMA ALTERAÇÃO
             $("div[contenteditable='true']").bind("input", function(){
                 $(this).css("background-color", "#FDFFDA");
@@ -695,9 +654,6 @@ function carregaJsonEntrada(){
                     //console.log(this);
                 });
             });
-
-
-
             
         },
         async: true

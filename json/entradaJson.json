@@ -19,7 +19,16 @@
 				"ch-executada": "1760",
 				"email": "fabio@inf.ufg.br"
 			},
-			"afastamento": {},
+			"afastamento": [
+                {
+                    "inicio": "03/02/2009",
+                    "fim": "28/05/2009"
+                },
+                {
+                    "inicio": "08/08/2009",
+                    "fim": "13/10/2009"
+                }
+            ],
 			"atividades-de-ensino": [
 				{
 					"curso": "CIÊNCIAS DA COMPUTAÇÃO",
@@ -184,7 +193,12 @@
 				"ch-executada": "1760",
 				"email": "fabio@inf.ufg.br"
 			},
-			"afastamento": {},
+			"afastamento": [
+                {
+                  "inicio": "01/03/2010",
+                  "fim": "14/07/2010"
+                }
+            ],
 			"atividades-de-ensino": [
 				{
 					"curso": "ENGENHARIA DE SOFTWARE",

@@ -39,17 +39,17 @@
     <script src="js/principal.js"></script>
 
     <!-- Table to JSON -->
-    <script type="text/javascript" src="js/jquery.tabletojson.min.js"></script> 
+    <!--<script type="text/javascript" src="js/jquery.tabletojson.min.js"></script>-->
 
     <!-- PRETTY DIFF -->
-    <script type="text/javascript" src="js/prettydiff.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/diffview.css" media="all"/>
+    <!--<script type="text/javascript" src="js/prettydiff.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/diffview.css" media="all"/>-->
     
     <!-- JSON-Diff -->
-    <script type="text/javascript" src="public/build/jsondiffpatch.js"></script> 
+    <!--<script type="text/javascript" src="public/build/jsondiffpatch.js"></script>
     <script type="text/javascript" src="public/build/jsondiffpatch-formatters.js"></script> 
     <link rel="stylesheet" href="public/formatters-styles/html.css" type="text/css" />
-    <link rel="stylesheet" href="public/formatters-styles/annotated.css" type="text/css" />
+    <link rel="stylesheet" href="public/formatters-styles/annotated.css" type="text/css" />-->
 
     <!-- Mask -->
     <script type="text/javascript" src="js/mask.js"></script>
@@ -335,17 +335,16 @@
                 requestJson["periodos"] = arrPeriodosRequest;
 
                 if(siape != "" && usuario != "" && senha != "" && arrPeriodosRequest.length > 0){
-                    $("#dadosGerais").show();
                     carregaJsonEntrada();
+                    $("#dadosGerais").show();
+                    $("#gerarRelatorio").attr('disabled', 'disabled');
                 } else {
                     alert("Preencha todos os campos para continuar!");
                 }
 
-
             });
 
             $("#novoPeriodoDeInteresse").click(function (){
-
                 if($("#inicio").val() != "" && $("#fim").val() != ""){
                     var listItem = $("#inicio").val() + " - " + $("#fim").val();
                     $("#periodosDeInteresse").append("<li>" +listItem + "</li>");
@@ -555,7 +554,7 @@
                     // ------- FIM TABELA ATIVIDADES ADMINISTRATIVAS
 
                     // FECHANDO PAINEL
-                    retorno += '</div><div class="panel-footer"><h7><strong>[TOTAL] CHA: ' +chaTotal +' -- CHT: ' +cht +' -- CHP:' +chp +'</strong></h7></div>'; // fim panel-body
+                    retorno += '</div><div class="panel-footer"><h7><strong>[TOTAL] cha: ' +chaTotal +' + cht:' +cht +' + chp:' +chp +' = ' +(chaTotal+cht+chp) +'</strong></h7></div>'; // fim panel-body
                     retorno += '</div></div><div class="col-lg-2"></div></div><br/>'; // fim do panel-default. fim da col. fim da row
                     $("#retornoHorasComputadas").append(retorno);
 
@@ -593,8 +592,8 @@
                     // FORMATANDO PERÍODO INTERNO
                     objetoPeriodo = formataPeriodo(GLOBAL_requestResponse["periodos"][i]);
                     objetoPeriodoGERAL["periodo"] = objetoPeriodo;
-                    
-                    
+
+
                     // FORMATANDO A TABELA DE DADOS DO DOCENTE
                     tabela = $("#dados-do-docente-"+i).tableToJSON();
                     objetoPeriodoGERAL["dados-do-docente"] = formataTabelaDadosDoDocente(tabela);
@@ -664,7 +663,7 @@
                 //$("#diffoutput").html(jsondiffpatch.formatters.html.format(delta, GLOBAL_left));
 
 
-                
+
                 args = {
                     source: GLOBAL_left,
                     diff: GLOBAL_right,
@@ -672,7 +671,7 @@
                     lang: "auto",
                     diffview: "inline"
                 };
-    
+
                 var output = prettydiff(args);
 
                 $("#jsonDiffVisual").html(output[0]);
@@ -702,7 +701,7 @@
                     $("#listaDeLinhasRemovidas").append(report);
                 }
 
-                // RETURN -- ADIÇÃO
+                // RETURN -- ADIÇÃO -- 100% OK
                 $("#listaDeLinhasInseridas").html("");
                 $('.adicionada').each(function (){
                     var report = "";
