@@ -1,10 +1,6 @@
 // VARIÁVEIS GLOBAIS
 var GLOBAL_requestResponse;
 
-// INICIALIZAÇÃO BÁSICA PARA TESTES
-var siape = "6302300";
-
-
 // CONTADOR DE PERIODOS
 var cont_periodos = 0;
 
@@ -38,7 +34,7 @@ function insereLinhaAfastamento_generic(idTabela){
     var idTr = "afastamento-linha" +cont_afastamento['"periodo-' +periodo +'"'] +"-periodo" +periodo;
     $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
 
-    // incrementa o contador de atividades de ensino
+    // incrementa o contador de afastamento
     cont_afastamento['"periodo-' +periodo +'"'] = cont_afastamento['"periodo-' +periodo +'"'] + 1;
 
     // visual
@@ -70,7 +66,7 @@ function insereLinhaAtividadeDeOrientacao_generic(idTabela){
     var idTr = "atividadesDeOrientacao-linha" +cont_atividadesDeOrientacao['"periodo-' +periodo +'"'] +"-periodo" +periodo;
     $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
 
-    // incrementa o contador de atividades de ensino
+    // incrementa o contador de atividades de orientação
     cont_atividadesDeOrientacao['"periodo-' +periodo +'"'] = cont_atividadesDeOrientacao['"periodo-' +periodo +'"'] + 1;
 
     // visual
@@ -87,7 +83,7 @@ function insereLinhaAtividadeEmProjeto_generic(idTabela){
 
     $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
 
-    // incrementa o contador de atividades de ensino
+    // incrementa o contador de atividades em projeto
     cont_atividadesEmProjetos['"periodo-' +periodo +'"'] = cont_atividadesEmProjetos['"periodo-' +periodo +'"'] + 1;
 
     // visual
@@ -104,7 +100,7 @@ function insereLinhaAtividadeDeExtensao_generic(idTabela){
 
     $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
 
-    // incrementa o contador de atividades de ensino
+    // incrementa o contador de atividades de extensão
     cont_atividadesDeExtensao['"periodo-' +periodo +'"'] = cont_atividadesDeExtensao['"periodo-' +periodo +'"'] + 1;
 
     // visual
@@ -122,7 +118,7 @@ function insereLinhaAtividadeDeQualificacao_generic(idTabela){
     $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
 
 
-    // incrementa o contador de atividades de ensino
+    // incrementa o contador de atividades de qualificação
     cont_atividadesDeQualificacao['"periodo-' +periodo +'"'] = cont_atividadesDeQualificacao['"periodo-' +periodo +'"'] + 1;
 
     // visual
@@ -140,7 +136,7 @@ function insereLinhaAtividadeAcademicaEspecial_generic(idTabela){
     $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
 
 
-    // incrementa o contador de atividades de ensino
+    // incrementa o contador de atividades acadêmicas especiais
     cont_atividadesAcademicasEspeciais['"periodo-' +periodo +'"'] = cont_atividadesAcademicasEspeciais['"periodo-' +periodo +'"'] + 1;
 
     // visual
@@ -158,7 +154,7 @@ function insereLinhaAtividadeAdministrativa_generic(idTabela){
     $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
 
 
-    // incrementa o contador de atividades de ensino
+    // incrementa o contador de atividades administrativas
     cont_atividadesAdministrativas['"periodo-' +periodo +'"'] = cont_atividadesAdministrativas['"periodo-' +periodo +'"'] + 1;
 
     // visual
@@ -176,7 +172,7 @@ function insereLinhaProduto_generic(idTabela){
     $('#'+idTabela+'').append('<tr id="' +idTr +'" class="adicionada"><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div></td><td><div contenteditable="true">000</div><td><button type="button" style="border-radius: 50px;" onclick="removeLinha(\'' +idTr +'\');" class="btn btn-primary btn-circle"><i class="fa fa-minus"></i></button></td></tr>');
 
 
-    // incrementa o contador de atividades de ensino
+    // incrementa o contador de produtos
     cont_produtos['"periodo-' +periodo +'"'] = cont_produtos['"periodo-' +periodo +'"'] + 1;
 
     // visual
@@ -624,6 +620,7 @@ function carregaJsonEntrada(){
 
             } // fim do for periodos
 
+            // PEGA TODAS AS TR COM CLASSE NORMAL E SALVA, INDICANDO O JSON DE ENTRADA
             $('.normal').each(function (){
                 var linhaFormatada = "{";
                 var trChildNodes = this.childNodes;
